@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:gradution_project/themes/theme_provider.dart';
-import 'package:gradution_project/widgets/my_button.dart';
-import 'package:gradution_project/widgets/my_textField.dart';
+import 'package:gradution_project/controller/switch_login_controller.dart';
+import 'package:gradution_project/view/widgets/my_button.dart';
+import 'package:gradution_project/view/widgets/my_text_field.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+    final TextEditingController confirmePasswordController = TextEditingController();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Column(
@@ -23,7 +25,7 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const Text("food delivery App"),
+          const Text("Let's create an account"),
           const SizedBox(
             height: 20,
           ),
@@ -39,11 +41,21 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          MyButton(text: "Login", onTap: (){},width: 119,color: Theme.of(context).colorScheme.onSecondary,),
+          MyTextField(
+            hintText: "confirm Password",
+            controller: confirmePasswordController,
+            obscureText: true,
+          ),
           const SizedBox(
             height: 20,
           ),
           MyButton(text: "Register", onTap: (){},width: 119,color: Theme.of(context).colorScheme.onSecondary,),
+          const SizedBox(
+            height: 20,
+          ),
+          MyButton(text: "Login", onTap: (){
+            context.read<SwitchLoginController>().toggleLog();
+          },width: 119,color: Theme.of(context).colorScheme.onSecondary,),
         ],
       ),
     );

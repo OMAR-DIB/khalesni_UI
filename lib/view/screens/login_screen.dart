@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:gradution_project/widgets/my_button.dart';
-import 'package:gradution_project/widgets/my_textField.dart';
+import 'package:gradution_project/controller/switch_login_controller.dart';
+import 'package:gradution_project/view/widgets/my_button.dart';
+import 'package:gradution_project/view/widgets/my_text_field.dart';
+import 'package:provider/provider.dart';
 
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
-
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
-    final TextEditingController confirmePasswordController = TextEditingController();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Column(
@@ -23,7 +23,7 @@ class RegisterScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const Text("Let's create an account"),
+          const Text("food delivery App"),
           const SizedBox(
             height: 20,
           ),
@@ -39,19 +39,25 @@ class RegisterScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          MyTextField(
-            hintText: "confirm Password",
-            controller: confirmePasswordController,
-            obscureText: true,
+          MyButton(
+            text: "Login",
+            onTap: () {
+
+            },
+            width: 119,
+            color: Theme.of(context).colorScheme.onSecondary,
           ),
           const SizedBox(
             height: 20,
           ),
-          MyButton(text: "Register", onTap: (){},width: 119,color: Theme.of(context).colorScheme.onSecondary,),
-          const SizedBox(
-            height: 20,
+          MyButton(
+            text: "Register",
+            onTap: () {
+              context.read<SwitchLoginController>().toggleLog();
+            },
+            width: 119,
+            color: Theme.of(context).colorScheme.onSecondary,
           ),
-          MyButton(text: "Login", onTap: (){},width: 119,color: Theme.of(context).colorScheme.onSecondary,),
         ],
       ),
     );

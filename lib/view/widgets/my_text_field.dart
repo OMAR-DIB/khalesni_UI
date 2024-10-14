@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-
+// ignore: file_names
 import 'package:flutter/material.dart';
 
 class MyTextField extends StatelessWidget {
@@ -8,11 +7,11 @@ class MyTextField extends StatelessWidget {
   final TextEditingController controller;
 
   const MyTextField({
-    Key? key,
+    super.key,
     required this.hintText,
     this.obscureText = false,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

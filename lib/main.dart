@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gradution_project/screens/login_screen.dart';
-import 'package:gradution_project/screens/register_screen.dart';
-import 'package:gradution_project/themes/theme_provider.dart';
+import 'package:gradution_project/controller/theme_provider.dart';
+import 'package:gradution_project/view/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).themeData,
-      home: RegisterScreen()
+      home: HomeScreen(),
     );
   } 
 }
