@@ -20,28 +20,31 @@ class MyCurrentLocation extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          "Deliver now",
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          Text(
+            "Deliver now",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
-        ),
-        GestureDetector(
-          onTap: ()=> openLocationSearchBox(context) ,
-          child: Row(
-            children: [
-              Text("6566 Tripoli",style: TextStyle(
-                color: Theme.of(context).colorScheme.inversePrimary,
-                fontWeight: FontWeight.bold,
-                
-              ),),
-              const Icon(Icons.keyboard_arrow_down_rounded)
-            ],
-          ),
-        )
-      ],
+          GestureDetector(
+            onTap: ()=> openLocationSearchBox(context) ,
+            child: Row(
+              children: [
+                Text("6566 Tripoli",style: TextStyle(
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                  fontWeight: FontWeight.bold,
+                  
+                ),),
+                const Icon(Icons.keyboard_arrow_down_rounded)
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

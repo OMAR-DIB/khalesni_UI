@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:gradution_project/models/food.dart';
+import 'package:gradution_project/view/widgets/my_food_tile.dart';
 
-class Restaurant {
+class Restaurant extends ChangeNotifier{
   // burger
   final List<Food> _menu = [
     // burger
@@ -68,55 +70,50 @@ class Restaurant {
     ),
 
 // drinks
-  Food(
+    Food(
       name: "Coffe",
       price: 0.99,
-      description:
-          "Turkish Coffe",
+      description: "Turkish Coffe",
       imagePath: "assets/drinks/drink-1.jpg",
       category: FoodCategory.drinks,
       availableAddon: [
         Addon(name: "classic Coffe", price: 0.99),
       ],
     ),
-  Food(
+    Food(
       name: "Water",
       price: 0.99,
-      description:
-          "Bottle of Tanourine",
+      description: "Bottle of Tanourine",
       imagePath: "assets/drinks/drink-2.jpg",
       category: FoodCategory.drinks,
       availableAddon: [
         Addon(name: "classic Water", price: 0.99),
       ],
     ),
-  Food(
+    Food(
       name: "Tea",
       price: 0.99,
-      description:
-          "Syrian Tea",
+      description: "Syrian Tea",
       imagePath: "assets/drinks/drink-3.jpg",
       category: FoodCategory.drinks,
       availableAddon: [
         Addon(name: "classic Tea", price: 0.99),
       ],
     ),
-  Food(
+    Food(
       name: "Lemon Mint",
       price: 0.99,
-      description:
-          "Lemon,water, and ice",
+      description: "Lemon,water, and ice",
       imagePath: "assets/drinks/drink-4.jpg",
       category: FoodCategory.drinks,
       availableAddon: [
         Addon(name: "classic Lemon", price: 0.99),
       ],
     ),
-  Food(
+    Food(
       name: "Zee Cola",
       price: 0.99,
-      description:
-          "instead of coca-cola",
+      description: "instead of coca-cola",
       imagePath: "assets/drinks/drink-5.jpg",
       category: FoodCategory.drinks,
       availableAddon: [
@@ -125,7 +122,7 @@ class Restaurant {
     ),
 
 // salads
-  Food(
+    Food(
       name: "Caesar Salad",
       price: 0.99,
       description:
@@ -136,7 +133,7 @@ class Restaurant {
         Addon(name: "classic Caesar Salad", price: 0.99),
       ],
     ),
-  Food(
+    Food(
       name: "Greek Salad",
       price: 0.99,
       description:
@@ -147,7 +144,7 @@ class Restaurant {
         Addon(name: "classic Greek Salad", price: 0.99),
       ],
     ),
-  Food(
+    Food(
       name: "Cobb Salad",
       price: 0.99,
       description:
@@ -158,7 +155,7 @@ class Restaurant {
         Addon(name: "classic Cobb Salad", price: 0.99),
       ],
     ),
-  Food(
+    Food(
       name: "Caprese Salad",
       price: 0.99,
       description:
@@ -169,7 +166,7 @@ class Restaurant {
         Addon(name: "classic Caprese Salad", price: 0.99),
       ],
     ),
-  Food(
+    Food(
       name: "Tuna Salad",
       price: 0.99,
       description:
@@ -182,7 +179,7 @@ class Restaurant {
     ),
 
 // sides
-  Food(
+    Food(
       name: "French Fries",
       price: 0.99,
       description:
@@ -193,40 +190,37 @@ class Restaurant {
         Addon(name: "classic French Fries", price: 0.99),
       ],
     ),
-  Food(
+    Food(
       name: "tabbouleh",
       price: 0.99,
-      description:
-          "Lebanese salad made with bulgur wheat, parsley, tomatoes.",
+      description: "Lebanese salad made with bulgur wheat, parsley, tomatoes.",
       imagePath: "assets/sides/side-2.jpg",
       category: FoodCategory.sides,
       availableAddon: [
         Addon(name: "classic tabbouleh", price: 0.99),
       ],
     ),
-  Food(
+    Food(
       name: "Mashed Potatoes",
       price: 0.99,
-      description:
-          " Creamy, smooth potatoes that have been boiled, mashed.",
+      description: " Creamy, smooth potatoes that have been boiled, mashed.",
       imagePath: "assets/sides/side-3.jpg",
       category: FoodCategory.sides,
       availableAddon: [
         Addon(name: "classic Mashed Potatoes", price: 0.99),
       ],
-  ),
-  Food(
+    ),
+    Food(
       name: "Rice",
       price: 0.99,
-      description:
-          "A versatile grain that can be cooked in various ways.",
+      description: "A versatile grain that can be cooked in various ways.",
       imagePath: "assets/sides/side-4.jpg",
       category: FoodCategory.sides,
       availableAddon: [
         Addon(name: "classic Rice", price: 0.99),
       ],
     ),
-  Food(
+    Food(
       name: "Mac and Cheese",
       price: 0.99,
       description:
@@ -239,7 +233,7 @@ class Restaurant {
     ),
 
 // desserts
-  Food(
+    Food(
       name: "Ice Cream",
       price: 0.99,
       description:
@@ -249,19 +243,18 @@ class Restaurant {
       availableAddon: [
         Addon(name: "classic Ice Cream", price: 0.99),
       ],
-  ),
-  Food(
+    ),
+    Food(
       name: "Chocolate Cake",
       price: 0.99,
-      description:
-          "A decadent dessert made with a rich chocolate batter.",
+      description: "A decadent dessert made with a rich chocolate batter.",
       imagePath: "assets/desserts/dessert-2.jpg",
       category: FoodCategory.desserts,
       availableAddon: [
         Addon(name: "classic Chocolate Cake", price: 0.99),
       ],
-  ),
-  Food(
+    ),
+    Food(
       name: "Apple Pie",
       price: 0.99,
       description:
@@ -271,19 +264,18 @@ class Restaurant {
       availableAddon: [
         Addon(name: "classic Apple Pie", price: 0.99),
       ],
-  ),
-  Food(
+    ),
+    Food(
       name: "Tiramisu",
       price: 0.99,
-      description:
-          "An Italian dessert made with ladyfingers dipped in coffee.",
+      description: "An Italian dessert made with ladyfingers dipped in coffee.",
       imagePath: "assets/desserts/dessert-4.jpg",
       category: FoodCategory.desserts,
       availableAddon: [
         Addon(name: "classic Tiramisu", price: 0.99),
       ],
-  ),
-  Food(
+    ),
+    Food(
       name: "Cheesecake",
       price: 0.99,
       description:
@@ -293,10 +285,23 @@ class Restaurant {
       availableAddon: [
         Addon(name: "Cheesecake", price: 0.99),
       ],
-  ),
-
+    ),
   ];
   List<Food> get menu => _menu;
+  List<Food> filterMenuByCategories(
+      FoodCategory catregory, List<Food> fullMenu) {
+    return fullMenu.where((element) => element.category == catregory).toList();
+  }
+
+  List<Widget> getFiltredFood(List<Food> fullMenu) {
+    return FoodCategory.values.map((category) {
+      List<Food> categoryMenu = filterMenuByCategories(category, fullMenu);
+      return ListView.builder(
+        itemCount: 5,
+        itemBuilder: (context, index) => MyFoodTile(food: categoryMenu[index], onTap: (){})
+      );
+    }).toList();
+  }
   /* OPERATRIONS
   
   // add to cart
