@@ -3,6 +3,7 @@ import 'package:gradution_project/models/food.dart';
 import 'package:gradution_project/view/widgets/my_food_tile.dart';
 
 class Restaurant extends ChangeNotifier{
+  
   // burger
   final List<Food> _menu = [
     // burger
@@ -287,7 +288,9 @@ class Restaurant extends ChangeNotifier{
       ],
     ),
   ];
+
   List<Food> get menu => _menu;
+
   List<Food> filterMenuByCategories(
       FoodCategory catregory, List<Food> fullMenu) {
     return fullMenu.where((element) => element.category == catregory).toList();
@@ -302,6 +305,7 @@ class Restaurant extends ChangeNotifier{
       );
     }).toList();
   }
+
   /* OPERATRIONS
   
   // add to cart
