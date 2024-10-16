@@ -1,9 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gradution_project/models/cart_item.dart';
 import 'package:gradution_project/models/food.dart';
 import 'package:gradution_project/view/widgets/my_food_tile.dart';
 
-class Restaurant extends ChangeNotifier{
-  
+class Restaurant extends ChangeNotifier {
   // burger
   final List<Food> _menu = [
     // burger
@@ -300,21 +301,81 @@ class Restaurant extends ChangeNotifier{
     return FoodCategory.values.map((category) {
       List<Food> categoryMenu = filterMenuByCategories(category, fullMenu);
       return ListView.builder(
-        itemCount: 5,
-        itemBuilder: (context, index) => MyFoodTile(food: categoryMenu[index], onTap: (){})
-      );
+          itemCount: 5,
+          itemBuilder: (context, index) =>
+              MyFoodTile(food: categoryMenu[index], onTap: () {}));
     }).toList();
   }
 
-  /* OPERATRIONS
-  
-  // add to cart
-  //  remove from cart
-  // get total price of cart
-  // get total nb of items in cart
-  // clear the cart
-   */
+  //  OPERATRIONS
 
+  // add to cart
+  List<CartItem> _cart = [];
+  List<CartItem> get cart => _cart;
+  void addToCart(Food food, List<Addon> selectedAddons) {
+    // Helper function to compare two lists of Addon objects
+    bool _areAddonsSame(List<Addon> list1, List<Addon> list2) {
+      if (list1.length != list2.length) return false;
+      for (int i = 0; i < list1.length; i++) {
+        if (list1[i] != list2[i]) return false;
+      }
+      return true;
+    }
+    // Function to find matching cart item
+    CartItem? _findCartItem(Food food, List<Addon> selectedAddons) {
+      for (var item in _cart) {
+        if (item.food == food &&
+            _areAddonsSame(item.selectedAddons, selectedAddons)) {
+          return item;
+        }
+      }
+      return null;
+    }
+    // Find the item in the cart
+    CartItem? cartItem = _findCartItem(food, selectedAddons);
+    // If item exists, increase quantity, otherwise add new item
+    if (cartItem != null) {
+      cartItem.quantity++;
+    } else {
+      _cart.add(CartItem(food: food, selectedAddons: selectedAddons));
+    }
+    notifyListeners();
+  }
+
+  // remove from cart
+  void removeFromCart(CartItem cartItem){
+    int index = _cart.indexOf(cartItem);
+    if (index != -1){
+      if(_cart[index].quantity > 1){
+        cartItem.quantity--;
+      }
+      else {
+        _cart.removeAt(index);
+      }
+    }
+    notifyListeners(); 
+  }
+  // get total price of cart
+  double getTotalPrice(){
+    double totaL = 0.0;
+    for (CartItem cartItem in _cart){
+      double itemTotal = cartItem.food.price;
+      for (Addon addon in cartItem.selectedAddons){
+        itemTotal += addon.price;
+      }
+      totaL = itemTotal * cartItem.quantity;
+    }
+    return totaL;
+  }
+  // get total nb of items in cart
+  int getNbOfItemInCart(){
+    return _cart.length;
+  }
+  // clear the cart
+  void clearCart(){
+    _cart.clear();
+    notifyListeners();
+  }
   /* HELPERS
   // generate a receip
   // format double value into money

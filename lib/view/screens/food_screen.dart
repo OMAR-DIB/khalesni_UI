@@ -4,6 +4,7 @@ import 'package:gradution_project/models/food.dart';
 
 import 'package:flutter/material.dart';
 import 'package:gradution_project/models/food.dart';
+import 'package:gradution_project/models/restaurant.dart';
 import 'package:gradution_project/view/widgets/my_button.dart';
 import 'package:provider/provider.dart';
 
@@ -14,12 +15,19 @@ class FoodScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => Restaurant(),  
+        ),
+        ChangeNotifierProvider(
       create: (_) {
         final controller = AddOnProvider();
         controller.initializeAddons(food.availableAddon);
         return controller;
       },
+      ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Food Details"),
@@ -77,7 +85,12 @@ class FoodScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    MyButton(text: "ADD TO CARd", onTap: (){},color: Theme.of(context).colorScheme.inversePrimary,),
+                    Consumer<AddOnProvider>(
+                      builder: (context, controller, child) => MyButton(text: "ADD TO CARd", onTap: (){
+                      controller.addItemToCart(food, controller.selectedAddons, context);
+                      
+                      },color: Theme.of(context).colorScheme.inversePrimary,),
+                    ),
                   ],
                 ),
               ),
