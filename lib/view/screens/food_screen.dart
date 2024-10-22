@@ -17,9 +17,9 @@ class FoodScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (context) => Restaurant(),  
-        ),
+        // ChangeNotifierProvider(
+        //   create: (context) => Restaurant(),  
+        // ),
         ChangeNotifierProvider(
       create: (_) {
         final controller = AddOnProvider();

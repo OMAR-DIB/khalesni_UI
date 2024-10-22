@@ -12,10 +12,10 @@ void main() {
           create: (context) => ThemeProvider(),
           
         ),
-        // ChangeNotifierProvider(
-        //   create: (context) => Restaurant(),
+        ChangeNotifierProvider(
+          create: (context) => Restaurant(),
           
-        // )
+        ),
       ],
       child: const MyApp(),
     ),
