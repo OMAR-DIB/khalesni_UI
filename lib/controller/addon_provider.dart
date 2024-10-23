@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gradution_project/main.dart';
 import 'package:gradution_project/models/food.dart';
 import 'package:gradution_project/models/restaurant.dart';
 import 'package:gradution_project/view/screens/cart_screen.dart';
@@ -26,7 +25,7 @@ class AddOnProvider extends ChangeNotifier {
       .toList();
 
   void addItemToCart(Food food,Map<Addon, bool> selectedAddons,BuildContext context){
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartScreen()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CartScreen()));
     List<Addon> currentlySelectors = [];
     for (Addon addon in food.availableAddon){
       if (selectedAddons[addon] == true){

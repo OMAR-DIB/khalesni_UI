@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradution_project/controller/addon_provider.dart';
 import 'package:gradution_project/models/food.dart';
-
-import 'package:flutter/material.dart';
-import 'package:gradution_project/models/food.dart';
-import 'package:gradution_project/models/restaurant.dart';
 import 'package:gradution_project/view/widgets/my_button.dart';
 import 'package:provider/provider.dart';
 

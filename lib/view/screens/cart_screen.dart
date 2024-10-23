@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradution_project/models/restaurant.dart';
+import 'package:gradution_project/view/widgets/my_cart_tile.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
@@ -19,7 +20,10 @@ class CartScreen extends StatelessWidget {
           body: Column(
             children: [
               Expanded(
-                child: Container(),
+                child: ListView.builder(itemCount: userCart.length,itemBuilder: (context,index){
+                  final cartItem = userCart[index];
+                  return MyCartTile(cartItem: cartItem);
+                }),
               ),
             ],
           ),
