@@ -67,12 +67,12 @@ class MyCartTile extends StatelessWidget {
                           ],
                         ),
                         shape: StadiumBorder(
-                          side: BorderSide(
-                            color: Theme.of(context).colorScheme.primary,
-                          )
-                        ),
+                            side: BorderSide(
+                          color: Theme.of(context).colorScheme.primary,
+                        )),
                         onSelected: (Value) {},
-                        backgroundColor: Theme.of(context).colorScheme.secondary,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                         labelStyle: TextStyle(
                           color: Theme.of(context).colorScheme.inversePrimary,
                           fontSize: 12,
