@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradution_project/models/food.dart';
 import 'package:gradution_project/models/restaurant.dart';
-import 'package:gradution_project/view/screens/cart_screen.dart';
 import 'package:provider/provider.dart';
 
 class AddOnProvider extends ChangeNotifier {

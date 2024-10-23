@@ -1,16 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:provider/provider.dart';
+import 'package:gradution_project/view/widgets/my_button.dart';
+import 'package:gradution_project/controller/payment_provider.dart'; // Adjust path if necessary
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        title: const Text("Checkout"),
-        backgroundColor: Colors.transparent,
-        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+    return ChangeNotifierProvider(
+      create: (context) => PaymentProvider(),
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: AppBar(
+          title: const Text("Checkout"),
+          backgroundColor: Colors.transparent,
+          foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+        ),
+        body: Column(
+          children: [
+            Consumer<PaymentProvider>(
+              builder: (context, provider, _) {
+                return Column(
+                  children: [
+                    CreditCardWidget(
+                      cardNumber: provider.cardNumber,
+                      expiryDate: provider.expiryDate,
+                      cardHolderName: provider.cardHolderName,
+                      cvvCode: provider.cvvCode,
+                      showBackView: provider.isCvvFocused,
+                      onCreditCardWidgetChange: (p0) {},
+                    ),
+                    CreditCardForm(
+                      formKey: provider.formKey,
+                      cardNumber: provider.cardNumber,
+                      expiryDate: provider.expiryDate,
+                      cardHolderName: provider.cardHolderName,
+                      cvvCode: provider.cvvCode,
+                      onCreditCardModelChange: (data) {
+                        provider.updateCardDetails(data);
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
+            const Spacer(),
+            MyButton(
+              text: 'PaY nOw',
+              onTap: () { },
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradution_project/models/restaurant.dart';
+import 'package:gradution_project/view/screens/payment_screen.dart';
 import 'package:gradution_project/view/widgets/clear_cart_dialog.dart';
 import 'package:gradution_project/view/widgets/my_button.dart';
 import 'package:gradution_project/view/widgets/my_cart_tile.dart';
@@ -51,8 +52,18 @@ class CartScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              MyButton(text: "cHeCkOuT", onTap: (){}),
-              const SizedBox(height: 25,),
+              MyButton(
+                  text: "cHeCkOuT",
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const PaymentScreen(),
+                      ),
+                    );
+                  }),
+              const SizedBox(
+                height: 25,
+              ),
             ],
           ),
         );
