@@ -20,14 +20,17 @@ class MyCurrentLocation extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding:  EdgeInsets.all(screenWidth * 0.01),
       child: Column(
         children: [
           Text(
             "Deliver now",
             style: TextStyle(
               color: Theme.of(context).colorScheme.primary,
+              fontSize: screenWidth * 0.04,
             ),
           ),
           GestureDetector(
@@ -37,7 +40,7 @@ class MyCurrentLocation extends StatelessWidget {
                 Text("6566 Tripoli",style: TextStyle(
                   color: Theme.of(context).colorScheme.inversePrimary,
                   fontWeight: FontWeight.bold,
-                  
+                  fontSize: screenWidth * 0.05,
                 ),),
                 const Icon(Icons.keyboard_arrow_down_rounded)
               ],

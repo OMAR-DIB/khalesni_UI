@@ -5,14 +5,17 @@ class MyDescriptionBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Theme.of(context).colorScheme.secondary),
         borderRadius: BorderRadius.circular(8),
       ),
-       padding: const EdgeInsets.all(25.0),
-       margin: const EdgeInsets.only(left: 25,right: 24,bottom: 25),
-
+      //  padding: const EdgeInsets.all(25.0),
+      //  margin: const EdgeInsets.only(left: 25,right: 24,bottom: 25),
+      padding: EdgeInsets.all(screenWidth * 0.05),
+      margin: EdgeInsets.only(left: screenWidth * 0.05,right: screenWidth * 0.05,bottom: screenHeight * 0.01,top: screenHeight * 0.01),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

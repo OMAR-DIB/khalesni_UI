@@ -12,44 +12,56 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Screen dimensions for responsiveness
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return ChangeNotifierProvider(
       create: (context) => Restaurant(),
-
-      child: Builder(builder: (context) => DefaultTabController(
-        length: FoodCategory.values.length, // Number of tabs
-        child: Scaffold(
-          drawer: const MyDrawer(),
-          body:  NestedScrollView(
-                headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                  MySilverAppBar(
-                    title: const Text("M E N U"),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Divider(
-                          indent: 25,
-                          endIndent: 25,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                        const MyCurrentLocation(),
-                        const MyDescriptionBox(),
-                        TabBar(
-                          isScrollable:
-                              true, // Allows the tabs to scroll if needed
-                          tabs: FoodCategory.values.map((e) => Text(e.name)).toList(),
-                        ),
-                      ],
-                    ),
+      child: Builder(
+        builder: (context) => DefaultTabController(
+          length: FoodCategory.values.length, // Number of tabs
+          child: Scaffold(
+            drawer: const MyDrawer(),
+            body: NestedScrollView(
+              headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                MySilverAppBar(
+                  title: const Text("M E N U"),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Divider(
+                        indent: screenWidth * 0.05,
+                        endIndent: screenWidth * 0.05,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      const MyCurrentLocation(),
+                      const MyDescriptionBox(),
+                      TabBar(
+                        isScrollable:
+                            true, // Allows the tabs to scroll if needed
+                        tabs: FoodCategory.values
+                            .map((e) => Text(
+                                  e.name,
+                                  style: TextStyle(
+                                    fontSize: screenWidth *
+                                        0.04, // Responsive font size
+                                  ),
+                                ))
+                            .toList(),
+                      ),
+                    ],
                   ),
-                ],
-                body:  Consumer<Restaurant>(
-                  builder: (context,  restaurant, child) => TabBarView(
-                    children: restaurant.getFiltredFood(restaurant.menu),
-                  ),
+                ),
+              ],
+              body: Consumer<Restaurant>(
+                builder: (context, restaurant, child) => TabBarView(
+                  children: restaurant.getFiltredFood(restaurant.menu),
                 ),
               ),
             ),
+          ),
+        ),
       ),
-    ));
+    );
   }
 }

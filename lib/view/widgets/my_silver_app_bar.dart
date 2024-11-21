@@ -8,9 +8,11 @@ class MySilverAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return SliverAppBar(
-      expandedHeight: 340,
-      collapsedHeight: 120,
+      expandedHeight: screenHeight * 0.6, // Adjusted for responsiveness
+      collapsedHeight: screenHeight * 0.15, // Dynamic height
       floating: false,
       pinned: true,
       actions: [
@@ -24,7 +26,7 @@ class MySilverAppBar extends StatelessWidget {
       title: const Text("Sunset Dinner"),
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
-          padding: const EdgeInsets.only(bottom: 58.0),
+          padding:  EdgeInsets.only(bottom:  screenWidth * 0.08),
           child: child,
         ),
         title: title,

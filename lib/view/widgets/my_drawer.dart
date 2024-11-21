@@ -7,6 +7,8 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Drawer(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -22,7 +24,7 @@ class MyDrawer extends StatelessWidget {
                     "Menu",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary,
-                      fontSize: 24,
+                      fontSize: screenWidth * 0.07,
                     ),
                   ),
                 ),
@@ -50,7 +52,7 @@ class MyDrawer extends StatelessWidget {
           ),
           // Log out button at the bottom
           Padding(
-            padding: const EdgeInsets.only(bottom: 20),
+            padding: EdgeInsets.only(bottom: screenWidth * 0.05),
             child: MyDrawerTitle(
               text: 'Log Out',
               icon: Icons.logout,

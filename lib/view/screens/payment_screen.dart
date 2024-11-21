@@ -49,7 +49,10 @@ class PaymentScreen extends StatelessWidget {
             const Spacer(),
             MyButton(
               text: 'PaY nOw',
-              onTap: () { },
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+               },
             ),
             const SizedBox(
               height: 25,
