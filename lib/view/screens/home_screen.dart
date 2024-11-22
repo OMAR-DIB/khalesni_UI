@@ -29,11 +29,11 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Divider(
-                        indent: screenWidth * 0.05,
-                        endIndent: screenWidth * 0.05,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
+                      // Divider(
+                      //   indent: screenWidth * 0.01,
+                      //   endIndent: screenWidth * 0.01,
+                      //   color: Theme.of(context).colorScheme.secondary,
+                      // ),
                       const MyCurrentLocation(),
                       const MyDescriptionBox(),
                       TabBar(
@@ -43,8 +43,8 @@ class HomeScreen extends StatelessWidget {
                             .map((e) => Text(
                                   e.name,
                                   style: TextStyle(
-                                    fontSize: screenWidth *
-                                        0.04, // Responsive font size
+                                    fontSize: screenHeight *
+                                        0.036, // Responsive font size
                                   ),
                                 ))
                             .toList(),

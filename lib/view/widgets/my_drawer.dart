@@ -8,8 +8,9 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-
+    final screenHeight = MediaQuery.of(context).size.height;
     return Drawer(
+      // width:screenHeight * 0.06,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -45,7 +46,11 @@ class MyDrawer extends StatelessWidget {
                   // Navigate to Settings Page
                   // Navigator.of(context).pushReplacementNamed('/settings');
                   Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SettignsScreen(),),);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const SettignsScreen(),
+                    ),
+                  );
                 },
               ),
             ],
@@ -58,7 +63,6 @@ class MyDrawer extends StatelessWidget {
               icon: Icons.logout,
               onTap: () {
                 // Perform log out operation here
-                
               },
             ),
           ),

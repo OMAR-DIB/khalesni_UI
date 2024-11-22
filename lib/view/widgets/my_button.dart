@@ -12,8 +12,10 @@ class MyButton extends StatelessWidget {
     required this.text,
     required this.onTap,
     this.color = Colors.blue,
-    this.width = double.infinity,
-    this.height = 50.0,
+    // this.width = double.infinity,
+    // this.height = 50.0,
+    this.width ,
+    this.height,
   });
 
   @override

@@ -15,12 +15,14 @@ class MyQuantitySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(50),
       ),
-      padding: const EdgeInsets.all(8),
+      padding: EdgeInsets.all(screenWidth * 0.02),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -28,21 +30,23 @@ class MyQuantitySelector extends StatelessWidget {
             onTap: onIncrement,
             child: Icon(
               Icons.remove,
-              size: 20,
+              size: screenWidth * 0.06,
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
             child: Center(
-              child: Text(quantity.toString()),
+              child: Text(quantity.toString(),style: TextStyle(
+                fontSize: screenWidth * 0.04,
+              ),),
             ),
           ),
           GestureDetector(
             onTap: onDecrement,
             child: Icon(
               Icons.add,
-              size: 20,
+              size: screenWidth * 0.06,
               color: Theme.of(context).colorScheme.primary,
             ),
           ),

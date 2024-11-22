@@ -10,37 +10,49 @@ class MyCartTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Consumer<Restaurant>(
       builder: (context, restaurant, child) => Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(8),
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+        margin: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.04, vertical: screenHeight * 0.01),
         child: Column(
           children: [
-            Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.asset(
-                    cartItem.food.imagePath,
-                    width: 100,
+            Padding(
+              padding: EdgeInsets.only(
+                  top: screenWidth * 0.05,
+                  right: screenWidth * 0.05,
+                  bottom: screenWidth * 0.03,
+                  left: screenWidth * 0.05),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      cartItem.food.imagePath,
+                      width: screenWidth * 0.2,
+                      // height: screenHeight * 0.11,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Column(
-                  children: [
-                    Text(cartItem.food.name),
-                    Text("\$ ${cartItem.food.price}")
-                  ],
-                ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: MyQuantitySelector(
+                  SizedBox(
+                    width: screenWidth * 0.01,
+                  ),
+                  Column(
+                    children: [
+                      Text(cartItem.food.name,style: TextStyle(
+                        fontSize: screenWidth * 0.05,
+                      ),),
+                      Text("\$ ${cartItem.food.price}",style: TextStyle(
+                        fontSize: screenWidth * 0.05,
+                      ),)
+                    ],
+                  ),
+                  const Spacer(),
+                  MyQuantitySelector(
                       quantity: cartItem.quantity,
                       food: cartItem.food,
                       onIncrement: () {
@@ -50,36 +62,45 @@ class MyCartTile extends StatelessWidget {
                         restaurant.addToCart(
                             cartItem.food, cartItem.selectedAddons);
                       }),
-                ),
-              ],
+                ],
+              ),
             ),
-            SizedBox(
-              height: cartItem.selectedAddons.isEmpty ? 0 : 60,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: cartItem.selectedAddons
-                    .map(
-                      (addon) => FilterChip(
-                        label: Row(
-                          children: [
-                            Text(addon.name),
-                            Text("\$ ${addon.price}")
-                          ],
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: screenWidth * 0.05, left: screenWidth * 0.04),
+              child: SizedBox(
+                height:
+                    cartItem.selectedAddons.isEmpty ? 0 : screenHeight * 0.07,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: cartItem.selectedAddons
+                      .map(
+                        (addon) => FilterChip(
+                          label: Row(
+                            children: [
+                              Text(addon.name,style: TextStyle(
+                                fontSize: screenHeight *0.02,
+                              ),),
+                              Text("\$ ${addon.price}",style: TextStyle(
+                                fontSize: screenHeight *0.02,
+                              ),)
+                            ],
+                          ),
+                          shape: StadiumBorder(
+                              side: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
+                          )),
+                          onSelected: (Value) {},
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                          labelStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.inversePrimary,
+                            fontSize: screenWidth * 0.02,
+                          ),
                         ),
-                        shape: StadiumBorder(
-                            side: BorderSide(
-                          color: Theme.of(context).colorScheme.primary,
-                        )),
-                        onSelected: (Value) {},
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary,
-                          fontSize: 12,
-                        ),
-                      ),
-                    )
-                    .toList(),
+                      )
+                      .toList(),
+                ),
               ),
             )
           ],

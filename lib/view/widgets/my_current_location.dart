@@ -22,32 +22,29 @@ class MyCurrentLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    return Padding(
-      padding:  EdgeInsets.all(screenWidth * 0.01),
-      child: Column(
-        children: [
-          Text(
-            "Deliver now",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-              fontSize: screenWidth * 0.04,
-            ),
+    return Column(
+      children: [
+        Text(
+          "Deliver now",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.primary,
+            fontSize: screenHeight * 0.036,
           ),
-          GestureDetector(
-            onTap: ()=> openLocationSearchBox(context) ,
-            child: Row(
-              children: [
-                Text("6566 Tripoli",style: TextStyle(
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: screenWidth * 0.05,
-                ),),
-                const Icon(Icons.keyboard_arrow_down_rounded)
-              ],
-            ),
-          )
-        ],
-      ),
+        ),
+        GestureDetector(
+          onTap: ()=> openLocationSearchBox(context) ,
+          child: Row(
+            children: [
+              Text("6566 Tripoli",style: TextStyle(
+                color: Theme.of(context).colorScheme.inversePrimary,
+                fontWeight: FontWeight.bold,
+                fontSize: screenWidth * 0.02,
+              ),),
+              const Icon(Icons.keyboard_arrow_down_rounded)
+            ],
+          ),
+        )
+      ],
     );
   }
 }

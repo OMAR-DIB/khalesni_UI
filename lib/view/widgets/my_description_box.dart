@@ -14,22 +14,28 @@ class MyDescriptionBox extends StatelessWidget {
       ),
       //  padding: const EdgeInsets.all(25.0),
       //  margin: const EdgeInsets.only(left: 25,right: 24,bottom: 25),
-      padding: EdgeInsets.all(screenWidth * 0.05),
-      margin: EdgeInsets.only(left: screenWidth * 0.05,right: screenWidth * 0.05,bottom: screenHeight * 0.01,top: screenHeight * 0.01),
+      padding: EdgeInsets.all(screenHeight * 0.02),
+      margin: EdgeInsets.only(left: screenWidth * 0.02,right: screenWidth * 0.02,bottom: screenHeight * 0.01,top: screenHeight * 0.01),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             children: [
-              Text('\$0.99',style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-              Text('Delivery fee',style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
+              Text('\$0.99',style: TextStyle(color: Theme.of(context).colorScheme.primary,fontSize: screenHeight * 0.03,),),
+              Text('Delivery fee',style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: screenHeight * 0.03,)),
             ],
             
           ),
           Column(
             children: [
-              Text('25-25 min',style: TextStyle(color: Theme.of(context).colorScheme.primary)),
-              Text('Delivery time',style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
+              Text('\$6.99',style: TextStyle(color: Theme.of(context).colorScheme.primary,fontSize: screenHeight * 0.03)),
+              Text('Total',style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: screenHeight * 0.03)),
+            ],
+          ),
+          Column(
+            children: [
+              Text('25-25 min',style: TextStyle(color: Theme.of(context).colorScheme.primary,fontSize: screenHeight * 0.03)),
+              Text('Delivery time',style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: screenHeight * 0.03)),
             ],
           )
         ],

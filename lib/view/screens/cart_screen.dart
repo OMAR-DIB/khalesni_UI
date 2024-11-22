@@ -11,6 +11,8 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Consumer<Restaurant>(
       builder: (context, restaurant, child) {
         final userCart = restaurant.cart;
@@ -35,9 +37,11 @@ class CartScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     userCart.isEmpty
-                        ? const Expanded(
+                        ?  Expanded(
                             child: Center(
-                              child: Text("Go and SeLeCt your FoOd"),
+                              child: Text("Go and SeLeCt your FoOd",style: TextStyle(
+                                fontSize: screenWidth * 0.07
+                              ),),
                             ),
                           )
                         : Expanded(
@@ -60,10 +64,13 @@ class CartScreen extends StatelessWidget {
                         builder: (context) => const PaymentScreen(),
                       ),
                     );
-                  }),
-              const SizedBox(
-                height: 25,
-              ),
+                  },
+                  width: double.infinity,
+                  height:   screenHeight * 0.09,
+                  ),
+              // SizedBox(
+              //   height: screenHeight * 0.01,
+              // ),
             ],
           ),
         );
