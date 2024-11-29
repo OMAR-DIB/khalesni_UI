@@ -2,7 +2,7 @@ import 'package:gradution_project/models/food.dart';
 
 class CartItem {
   Food food;
-  List<Addon> selectedAddons;
+  List<Addones> selectedAddons;
   int quantity;
   CartItem(
       {required this.food, required this.selectedAddons, this.quantity = 1});

@@ -33,7 +33,7 @@ class MyCartTile extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.asset(
-                      cartItem.food.imagePath,
+                      cartItem.food.imgPath,
                       width: screenWidth * 0.2,
                       // height: screenHeight * 0.11,
                     ),

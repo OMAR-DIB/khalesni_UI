@@ -10,10 +10,12 @@ class MyFoodTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(screenHeight * 0.006),
           child: GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => FoodScreen(food: food),),);
@@ -24,37 +26,38 @@ class MyFoodTile extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(food.name),
+                      Text(food.name,style: TextStyle(fontSize: screenHeight*0.03),),
                       const SizedBox(
-                        height: 5,
+                        height: 4,
                       ),
                       Text(
                         '\$ ${food.price}',
                         style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary),
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: screenHeight*0.025),
                       ),
                       const SizedBox(
-                        height: 3,
+                        height: 2.5,
                       ),
                       Text(
                         food.description,
                         style: TextStyle(
                             color:
-                                Theme.of(context).colorScheme.inversePrimary),
+                                Theme.of(context).colorScheme.inversePrimary,fontSize: screenHeight*0.025),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(
-                        width: 10,
+                SizedBox(
+                        width: screenWidth * 0.01,
                       ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(
-                      9), // Adjust the value to make it circular or slightly rounded
+                      screenHeight*0.01), // Adjust the value to make it circular or slightly rounded
                   child: Image.asset(
-                    food.imagePath,
+                    food.imgPath,
                     // width: 120,
-                    height: 100,
+                    height: screenHeight*0.2,
                     fit: BoxFit
                         .cover, // Ensures the image fits within the rounded border
                   ),
@@ -65,8 +68,8 @@ class MyFoodTile extends StatelessWidget {
         ),
         Divider(
           color: Theme.of(context).colorScheme.tertiary,
-          indent: 10,
-          endIndent: 10,
+          indent: 5,
+          endIndent: 5,
         ),
       ],
     );

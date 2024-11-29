@@ -19,7 +19,7 @@ class FoodScreen extends StatelessWidget {
         ChangeNotifierProvider(
       create: (_) {
         final controller = AddOnProvider();
-        controller.initializeAddons(food.availableAddon);
+        controller.initializeAddons(food.addons);
         return controller;
       },
       ),
@@ -32,7 +32,7 @@ class FoodScreen extends StatelessWidget {
           child: Column(
             children: [
               Image.asset(
-                food.imagePath,
+                food.imgPath,
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -63,13 +63,13 @@ class FoodScreen extends StatelessWidget {
                         builder: (context,controller, child) =>ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: food.availableAddon.length,
+                          itemCount: food.addons.length,
                           itemBuilder: (context, index) {
-                            Addon addon = food.availableAddon[index];
+                            Addones addon = food.addons[index];
                             return CheckboxListTile(
-                              title: Text(food.availableAddon[index].name),
+                              title: Text(food.addons[index].name),
                               subtitle: Text(
-                                '\$${food.availableAddon[index].price.toString()}',
+                                '\$${food.addons[index].price.toString()}',
                               ),
                              
                               value: controller.selectedAddons[addon],// Replace with proper state handling for each checkbox

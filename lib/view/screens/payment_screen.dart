@@ -9,6 +9,8 @@ class PaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return ChangeNotifierProvider(
       create: (context) => PaymentProvider(),
       child: Scaffold(
@@ -19,19 +21,24 @@ class PaymentScreen extends StatelessWidget {
           foregroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
         body: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Consumer<PaymentProvider>(
               builder: (context, provider, _) {
                 return Column(
                   children: [
-                    CreditCardWidget(
-                      cardNumber: provider.cardNumber,
-                      expiryDate: provider.expiryDate,
-                      cardHolderName: provider.cardHolderName,
-                      cvvCode: provider.cvvCode,
-                      showBackView: provider.isCvvFocused,
-                      onCreditCardWidgetChange: (p0) {},
-                    ),
+                       CreditCardWidget(
+                        padding: 0,
+                        width : screenWidth*0.9,
+                        height: screenHeight*0.3,
+                        cardNumber: provider.cardNumber,
+                        expiryDate: provider.expiryDate,
+                        cardHolderName: provider.cardHolderName,
+                        cvvCode: provider.cvvCode,
+                        showBackView: provider.isCvvFocused,
+                        onCreditCardWidgetChange: (p0) {},
+                      ),
                     CreditCardForm(
                       formKey: provider.formKey,
                       cardNumber: provider.cardNumber,
@@ -46,7 +53,7 @@ class PaymentScreen extends StatelessWidget {
                 );
               },
             ),
-            const Spacer(),
+            // Spacer(),
             MyButton(
               text: 'PaY nOw',
               onTap: () {
@@ -54,8 +61,8 @@ class PaymentScreen extends StatelessWidget {
                 Navigator.of(context).pop();
                },
             ),
-            const SizedBox(
-              height: 25,
+           SizedBox(
+              height: screenHeight*0.02,
             ),
           ],
         ),

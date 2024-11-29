@@ -21,21 +21,21 @@ class MyDescriptionBox extends StatelessWidget {
         children: [
           Column(
             children: [
-              Text('\$0.99',style: TextStyle(color: Theme.of(context).colorScheme.primary,fontSize: screenHeight * 0.03,),),
-              Text('Delivery fee',style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: screenHeight * 0.03,)),
+              Text('\$0.99',style: TextStyle(color: Theme.of(context).colorScheme.primary,fontSize: screenHeight * 0.025,),),
+              Text('Delivery fee',style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: screenHeight * 0.025,)),
             ],
             
           ),
           Column(
             children: [
-              Text('\$6.99',style: TextStyle(color: Theme.of(context).colorScheme.primary,fontSize: screenHeight * 0.03)),
-              Text('Total',style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: screenHeight * 0.03)),
+              Text('\$6.99',style: TextStyle(color: Theme.of(context).colorScheme.primary,fontSize: screenHeight * 0.025)),
+              Text('Total',style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: screenHeight * 0.025)),
             ],
           ),
           Column(
             children: [
-              Text('25-25 min',style: TextStyle(color: Theme.of(context).colorScheme.primary,fontSize: screenHeight * 0.03)),
-              Text('Delivery time',style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: screenHeight * 0.03)),
+              Text('25-25 min',style: TextStyle(color: Theme.of(context).colorScheme.primary,fontSize: screenHeight * 0.025)),
+              Text('Delivery time',style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: screenHeight * 0.025)),
             ],
           )
         ],
