@@ -7,6 +7,7 @@ import 'package:gradution_project/view/widgets/my_drawer.dart';
 import 'package:gradution_project/view/widgets/my_food_tile.dart';
 import 'package:gradution_project/view/widgets/my_silver_app_bar.dart';
 import 'package:provider/provider.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     // Fetch menu data when the widget initializes
     restaurantProvider = Restaurant();
-   restaurantProvider.fetchMenu();
+    restaurantProvider.fetchMenu();
   }
 
   @override
@@ -39,19 +40,27 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, restaurant, child) {
               // Display loading indicator while fetching the menu
               if (restaurant.menu.isEmpty) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
 
-              // Extract unique categories from the menu
-              final categories = restaurant.menu
-                  .map((food) => {'id': food.categoryId, 'name': food.categoryName})
-                  .toSet()
-                  .toList();
+              // Extract unique categories based on categoryId
+              final Set<String> categoryIds = {};
+              final List<Map<String, String>> uniqueCategories = [];
+
+              for (var food in restaurant.menu) {
+                if (!categoryIds.contains(food.categoryId)) {
+                  categoryIds.add(food.categoryId);
+                  uniqueCategories.add({
+                    'id': food.categoryId,
+                    'name': food.categoryName,
+                  });
+                }
+              }
 
               return DefaultTabController(
-                length: categories.length, // Number of tabs matches categories
+                length: uniqueCategories.length, // Number of tabs matches unique categories
                 child: NestedScrollView(
                   headerSliverBuilder: (context, innerBoxIsScrolled) => [
                     MySilverAppBar(
@@ -63,12 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           const MyDescriptionBox(),
                           TabBar(
                             isScrollable: true, // Tabs can scroll
-                            tabs: categories
-                                .map((category) => Text(
-                                      category['name']!,
-                                      style: TextStyle(
-                                        fontSize: screenHeight * 0.036,
-                                      ),
+                            tabs: uniqueCategories
+                                .map((category) => Tab(
+                                      text: category['name']!,
                                     ))
                                 .toList(),
                           ),
@@ -77,14 +83,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                   body: TabBarView(
-                    children: categories.map((category) {
+                    children: uniqueCategories.map((category) {
                       final categoryMenu = restaurant.filterMenuByCategory(
                         category['id']!,
                         restaurant.menu,
                       );
 
                       if (categoryMenu.isEmpty) {
-                        return Center(
+                        return const Center(
                           child: Text("No items available in this category"),
                         );
                       }
