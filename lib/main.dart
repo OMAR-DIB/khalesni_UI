@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradution_project/controller/theme_provider.dart';
 import 'package:gradution_project/models/restaurant.dart';
+import 'package:gradution_project/view/screens/auth_screen.dart';
 import 'package:gradution_project/view/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).themeData,
-      home: HomeScreen(),
+      home: AuthScreen(),
     );
   }
 }
