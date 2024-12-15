@@ -4,10 +4,6 @@ import 'package:gradution_project/view/screens/login_screen.dart';
 import 'package:gradution_project/view/widgets/my_button.dart';
 import 'package:gradution_project/view/widgets/my_text_field.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
-import 'package:gradution_project/view/screens/login_screen.dart';
-import 'package:gradution_project/view/widgets/my_button.dart';
-import 'package:gradution_project/view/widgets/my_text_field.dart';
 import 'package:gradution_project/controller/user_controller.dart';
 
 class RegisterScreen extends StatelessWidget {

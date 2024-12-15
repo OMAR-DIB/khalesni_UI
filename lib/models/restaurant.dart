@@ -11,49 +11,49 @@ class Restaurant extends ChangeNotifier {
   List<Food> get menu => _menu;
 
   // Fetch all products from the API
-Future<void> fetchMenu() async {
-  try {
-    final response = await http.get(Uri.parse("${baseUrl}getAllProduct.php"));
-    if (response.statusCode == 200) {
-      // Decode the JSON response
-      final jsonData = json.decode(response.body);
-      print(jsonData);
+  Future<void> fetchMenu() async {
+    try {
+      final response = await http.get(Uri.parse("${baseUrl}getAllProduct.php"));
+      if (response.statusCode == 200) {
+        // Decode the JSON response
+        final jsonData = json.decode(response.body);
+        print(jsonData);
 
-      // Ensure the response contains the food data
-      if (jsonData['food'] != null) {
-        // Clear the current menu
-        _menu.clear();
+        // Ensure the response contains the food data
+        if (jsonData['food'] != null) {
+          // Clear the current menu
+          _menu.clear();
 
-        // Parse the food items into the Food model
-        List<dynamic> foodList = jsonData['food'];
-        foodList.forEach((item) {
-          _menu.add(Food(
-            id: item['id'],
-            name: item['name'],
-            price: double.parse(item['price'].toString()),
-            description: item['description'],
-            imgPath: item['imgPath'],
-            categoryId: item['category_id'],
-            categoryName: item['category_name'],
-            quantity: int.parse(item['quantity'].toString()),
-            addons: (item['addons'] as List)
-                .map((addon) => Addones.fromJson(addon))
-                .toList(),
-          ));
-        });
+          // Parse the food items into the Food model
+          List<dynamic> foodList = jsonData['food'];
+          foodList.forEach((item) {
+            _menu.add(Food(
+              id: item['id'],
+              name: item['name'],
+              price: double.parse(item['price'].toString()),
+              description: item['description'],
+              imgPath: item['imgPath'],
+              categoryId: item['category_id'],
+              categoryName: item['category_name'],
+              quantity: int.parse(item['quantity'].toString()),
+              addons: (item['addons'] as List)
+                  .map((addon) => Addones.fromJson(addon))
+                  .toList(),
+            ));
+          });
 
-        // Notify listeners to update the UI
-        notifyListeners();
+          // Notify listeners to update the UI
+          notifyListeners();
+        } else {
+          throw Exception("No food data in the response");
+        }
       } else {
-        throw Exception("No food data in the response");
+        throw Exception("Failed to fetch menu: ${response.statusCode}");
       }
-    } else {
-      throw Exception("Failed to fetch menu: ${response.statusCode}");
+    } catch (error) {
+      print("Error fetching menu:: $error");
     }
-  } catch (error) {
-    print("Error fetching menu:: $error");
   }
-}
 
   // Filter menu by category
   List<Food> filterMenuByCategory(String categoryId, List<Food> fullMenu) {

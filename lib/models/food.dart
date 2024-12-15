@@ -1,34 +1,10 @@
-  // class Food {
-  //   final String name;
-  //   final double price;
-  //   final String description;
-  //   final String imagePath;
-  //   final FoodCategory category;
-  //   List<Addon> availableAddon;
-    
-  //   Food(
-  //       {required this.name,
-  //       required this.price,
-  //       required this.description,
-  //       required this.imagePath,
-  //       required this.category,
-  //       required this.availableAddon});
-  // }
-
-  // class Addon {
-  //   String name;
-  //   double price;
-
-  //   Addon({required this.name, required this.price});
-  // }
-
-  enum FoodCategory {
+enum FoodCategory {
     burgers,
     drinks,
     salads,
     sides,
     desserts,
-  }
+}
   
 class Food {
   final String id;
@@ -75,13 +51,11 @@ class Addones {
   final String id;
   final String name;
   final double price;
-  final int quantity;
 
   Addones({
     required this.id,
     required this.name,
     required this.price,
-    required this.quantity,
   });
 
   // Factory method to parse JSON into an Addon object
@@ -90,7 +64,30 @@ class Addones {
       id: json['id'],
       name: json['name'],
       price: double.parse(json['price']),
-      quantity: int.parse(json['quantity']),
     );
   }
 }
+
+  // class Food {
+  //   final String name;
+  //   final double price;
+  //   final String description;
+  //   final String imagePath;
+  //   final FoodCategory category;
+  //   List<Addon> availableAddon;
+    
+  //   Food(
+  //       {required this.name,
+  //       required this.price,
+  //       required this.description,
+  //       required this.imagePath,
+  //       required this.category,
+  //       required this.availableAddon});
+  // }
+
+  // class Addon {
+  //   String name;
+  //   double price;
+
+  //   Addon({required this.name, required this.price});
+  // }
