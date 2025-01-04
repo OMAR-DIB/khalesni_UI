@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gradution_project/controller/addon_provider.dart';
 import 'package:gradution_project/models/food.dart';
@@ -5,7 +7,6 @@ import 'package:gradution_project/view/widgets/my_button.dart';
 import 'package:provider/provider.dart';
 
 class FoodScreen extends StatelessWidget {
-
   final Food food;
   const FoodScreen({super.key, required this.food});
 
@@ -14,15 +15,15 @@ class FoodScreen extends StatelessWidget {
     return MultiProvider(
       providers: [
         // ChangeNotifierProvider(
-        //   create: (context) => Restaurant(),  
+        //   create: (context) => Restaurant(),
         // ),
         ChangeNotifierProvider(
-      create: (_) {
-        final controller = AddOnProvider();
-        controller.initializeAddons(food.addons);
-        return controller;
-      },
-      ),
+          create: (_) {
+            final controller = AddOnProvider();
+            controller.initializeAddons(food.addons);
+            return controller;
+          },
+        ),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -31,8 +32,8 @@ class FoodScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Image.asset(
-                food.imgPath,
+              Image.file(
+                File(food.imgPath),
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -41,26 +42,35 @@ class FoodScreen extends StatelessWidget {
                   children: [
                     Text(
                       food.name,
-                      style: const TextStyle( fontSize: 20,fontWeight: FontWeight.bold ),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       food.price.toString(),
-                      style: TextStyle( fontSize: 20,fontWeight: FontWeight.bold ,color: Theme.of(context).colorScheme.inversePrimary),
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inversePrimary),
                     ),
                     Text(food.description),
                     const SizedBox(height: 16),
                     // Ensure ListView has a height
-                    Text("Available Add-ons:", style: TextStyle( color: Theme.of(context).colorScheme.inversePrimary ),),
+                    Text(
+                      "Available Add-ons:",
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.inversePrimary),
+                    ),
                     const SizedBox(height: 8),
                     // Use Expanded to allow ListView to take available space
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Theme.of(context).colorScheme.secondary,
-                        ),
-                        borderRadius: BorderRadius.circular(8)
-                      ),
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                          borderRadius: BorderRadius.circular(8)),
                       child: Consumer<AddOnProvider>(
-                        builder: (context,controller, child) =>ListView.builder(
+                        builder: (context, controller, child) =>
+                            ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: food.addons.length,
@@ -71,8 +81,9 @@ class FoodScreen extends StatelessWidget {
                               subtitle: Text(
                                 '\$${food.addons[index].price.toString()}',
                               ),
-                             
-                              value: controller.selectedAddons[addon],// Replace with proper state handling for each checkbox
+
+                              value: controller.selectedAddons[
+                                  addon], // Replace with proper state handling for each checkbox
                               onChanged: (value) {
                                 controller.toggleAddon(addon);
                               },
@@ -82,10 +93,14 @@ class FoodScreen extends StatelessWidget {
                       ),
                     ),
                     Consumer<AddOnProvider>(
-                      builder: (context, controller, child) => MyButton(text: "ADD TO CARd", onTap: (){
-                      controller.addItemToCart(food, controller.selectedAddons, context);
-                      
-                      },color: Theme.of(context).colorScheme.inversePrimary,),
+                      builder: (context, controller, child) => MyButton(
+                        text: "ADD TO CARd",
+                        onTap: () {
+                          controller.addItemToCart(
+                              food, controller.selectedAddons, context);
+                        },
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
                     ),
                   ],
                 ),

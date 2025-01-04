@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gradution_project/models/food.dart';
 import 'package:gradution_project/view/screens/food_screen.dart';
@@ -54,8 +56,8 @@ class MyFoodTile extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(
                       screenHeight*0.01), // Adjust the value to make it circular or slightly rounded
-                  child: Image.asset(
-                    food.imgPath,
+                  child: Image.file(
+                    File(food.imgPath),
                     // width: 120,
                     height: screenHeight*0.2,
                     fit: BoxFit

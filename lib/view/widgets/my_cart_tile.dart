@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gradution_project/models/cart_item.dart';
 import 'package:gradution_project/view/widgets/my_quantity_selector.dart';
@@ -32,8 +34,8 @@ class MyCartTile extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(
-                      cartItem.food.imgPath,
+                    child: Image.file(
+                      File(cartItem.food.imgPath),
                       width: screenWidth * 0.2,
                       // height: screenHeight * 0.11,
                     ),

@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gradution_project/models/food.dart';
+import 'package:gradution_project/view/screens/add_new_item.dart';
 import 'package:gradution_project/view/screens/admin_food_screen.dart';
 import 'package:http/http.dart' as http;
 
@@ -81,8 +83,8 @@ void deleteFoodItem(int id) async {
           return ListTile(
             title: Text(food['name']),
             subtitle: Text("Price: ${food['price']}"),
-            leading: Image.asset(
-              "${food['imgPath']}",
+            leading: Image.file(
+              File("${food['imgPath']}"),
               width: 30,
               height: 30,
             ),
@@ -124,6 +126,11 @@ void deleteFoodItem(int id) async {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Navigate to Add Food Screen
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => AddNewItem(),
+            ),
+          );
         },
         child: Icon(Icons.add),
       ),

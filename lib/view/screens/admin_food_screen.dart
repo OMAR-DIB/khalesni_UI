@@ -27,8 +27,8 @@ class _AdminFoodScreenState extends State<AdminFoodScreen> {
 
   void saveFood() async {
     final url = widget.food == null
-        ? 'http://yourapi.com/food'
-        : 'http://yourapi.com/food/${widget.food!.id}';
+        ? 'http://localhost/khalesni/api/'
+        : 'http://localhost/khalesni/api/food/${widget.food!.id}';
 
     final response = widget.food == null
         ? await http.post(Uri.parse(url), body: {
