@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gradution_project/models/food.dart';
 import 'package:gradution_project/view/screens/add_new_item.dart';
 import 'package:gradution_project/view/screens/admin_food_screen.dart';
+import 'package:gradution_project/view/screens/order_screen.dart';
 import 'package:http/http.dart' as http;
 
 class AdminScreen extends StatefulWidget {
@@ -71,6 +72,18 @@ void deleteFoodItem(int id) async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => OrderScreen(),
+                ),
+              );
+            },
+          ),
+        ],
         title: Text('Admin Panel'),
       ),
       body: ListView.builder(

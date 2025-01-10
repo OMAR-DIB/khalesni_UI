@@ -62,7 +62,8 @@ class MyDrawer extends StatelessWidget {
               text: 'Log Out',
               icon: Icons.logout,
               onTap: () {
-                // Perform log out operation here
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
             ),
           ),

@@ -16,61 +16,101 @@ class CartScreen extends StatelessWidget {
     return Consumer<Restaurant>(
       builder: (context, restaurant, child) {
         final userCart = restaurant.cart;
+        final totalPrice = restaurant.getTotalPrice();
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Cartt"),
+            title: const Text("Cart"),
             backgroundColor: Colors.transparent,
             foregroundColor: Theme.of(context).colorScheme.inversePrimary,
             actions: [
               IconButton(
-                  onPressed: () {
-                    if (userCart.isNotEmpty) {
-                      clearCartDialog(context, restaurant);
-                    }
-                  },
-                  icon: const Icon(Icons.delete)),
+                onPressed: () {
+                  if (userCart.isNotEmpty) {
+                    clearCartDialog(context, restaurant); // Clear cart dialog
+                  }
+                },
+                icon: const Icon(Icons.delete),
+              ),
             ],
           ),
           body: Column(
             children: [
               Expanded(
-                child: Column(
-                  children: [
-                    userCart.isEmpty
-                        ?  Expanded(
-                            child: Center(
-                              child: Text("Go and SeLeCt your FoOd",style: TextStyle(
-                                fontSize: screenWidth * 0.07
-                              ),),
+                child: userCart.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.shopping_cart_outlined,
+                                size: screenWidth * 0.25, color: Colors.grey),
+                            SizedBox(height: screenHeight * 0.02),
+                            Text(
+                              "Your cart is empty!",
+                              style: TextStyle(
+                                  fontSize: screenWidth * 0.06,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey),
                             ),
-                          )
-                        : Expanded(
-                            child: ListView.builder(
-                              itemCount: userCart.length,
-                              itemBuilder: (context, index) {
-                                final cartItem = userCart[index];
-                                return MyCartTile(cartItem: cartItem);
+                            SizedBox(height: screenHeight * 0.02),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context); // Navigate back to menu
                               },
+                              child: const Text("Browse Menu"),
+                            ),
+                          ],
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: userCart.length,
+                        itemBuilder: (context, index) {
+                          final cartItem = userCart[index];
+                          return MyCartTile(cartItem: cartItem);
+                        },
+                      ),
+              ),
+              if (userCart.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Total:",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                  ],
-                ),
-              ),
-              MyButton(
-                  text: "cHeCkOuT",
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const PaymentScreen(),
+                          Text(
+                            "\$${totalPrice.toStringAsFixed(2)}",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                  width: double.infinity,
-                  height:   screenHeight * 0.09,
+                      SizedBox(height: screenHeight * 0.02),
+                      MyButton(
+                        text: "Checkout",
+                        onTap: () {
+                          restaurant.addOrder( userCart, 7);
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const PaymentScreen(),
+                            ),
+                          );
+                        },
+                        width: double.infinity,
+                        height: screenHeight * 0.09,
+                      ),
+                    ],
                   ),
-              // SizedBox(
-              //   height: screenHeight * 0.01,
-              // ),
+                ),
             ],
           ),
         );

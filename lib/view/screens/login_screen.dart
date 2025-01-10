@@ -25,7 +25,8 @@ class LoginScreen extends StatelessWidget {
 
         if (response['status'] == 'success') {
           final role = response['user']['role'];
-
+          emailController.clear();
+          passwordController.clear();   
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Login successful')),
           );

@@ -5,10 +5,29 @@ import 'package:gradution_project/models/food.dart';
 import 'package:gradution_project/view/widgets/my_food_tile.dart';
 import 'package:http/http.dart' as http;
 
+class Order {
+  final int id;
+  final String status;
+  // Other fields as required
+
+  Order({required this.id, required this.status});
+
+  factory Order.fromJson(Map<String, dynamic> json) {
+    return Order(
+      id: json['id'] ?? 0,  // Handling null safely
+      status: json['status'] ?? 'Unknown',  // Handling null safely
+      // Map other fields as required
+    );
+  }
+}
+
+
 class Restaurant extends ChangeNotifier {
   final String baseUrl = "http://localhost/khalesni/api/";
   final List<Food> _menu = [];
   List<Food> get menu => _menu;
+  final List<CartItem> _cart = [];
+  List<CartItem> get cart => _cart;
 
   // Fetch all products from the API
   Future<void> fetchMenu() async {
@@ -88,8 +107,6 @@ class Restaurant extends ChangeNotifier {
   }
 
   // Cart operations
-  final List<CartItem> _cart = [];
-  List<CartItem> get cart => _cart;
 
   void addToCart(Food food, List<Addones> selectedAddons) {
     // Helper function to compare two lists of Addon objects
@@ -156,4 +173,72 @@ class Restaurant extends ChangeNotifier {
     _cart.clear();
     notifyListeners();
   }
+
+  List<Order> _orders = [];
+
+Future<void> addOrder(List<CartItem> cartItems, int userId) async {
+  try {
+    // Create a list of order items with the specified format
+    List<Map<String, dynamic>> orderItems = cartItems.map((item) {
+      double addonPrice = item.selectedAddons.fold(0, (sum, addon) => sum + addon.price);
+      double totalPrice = (item.food.price + addonPrice) * item.quantity;
+      return {
+        'food_id': item.food.id,
+        'addones_id': item.selectedAddons.isNotEmpty ? item.selectedAddons[0].id : null, // Assuming only one addon for simplicity
+        'quantity': item.quantity,
+      };
+    }).toList();
+
+    // Include the user_id and total_price in the main order structure
+    final requestData = {
+      'user_id': userId,
+      'items': orderItems,
+      'total_price': getTotalPrice(),
+    };
+    print(json.encode(requestData));
+    // POST request to the backend
+    final response = await http.post(
+      Uri.parse("http://localhost/khalesni/api/addOrder.php"),
+      body: json.encode(requestData),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    // Handle the response
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      if (responseData != null && responseData is Map && responseData.containsKey('message')) {
+       
+        // Orders successfully added
+        notifyListeners();
+      } else {
+        throw Exception(responseData['error'] ?? 'Failed to add orders');
+      }
+    } else {
+      throw Exception('Failed to add orders');
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+Future<void> fetchAllOrders() async {
+    try {
+      final response = await http.get(Uri.parse("http://localhost/khalesni/api/getAllOrders.php"));
+
+      if (response.statusCode == 200) {
+        List<dynamic> data = json.decode(response.body);
+        _orders = data.map((order) => Order.fromJson(order)).toList();
+        notifyListeners();  // Notify listeners for UI updates
+      } else {
+        throw Exception('Failed to load orders');
+      }
+    } catch (e) {
+      throw Exception('Failed to load orders: $e');
+    }
+  }
+
+
+  // Additional methods to handle orders, etc.
+
+  List<Order> get orders => _orders;
 }
