@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gradution_project/controller/user_controller.dart';
+import 'package:gradution_project/main.dart';
 import 'package:gradution_project/models/restaurant.dart';
 import 'package:gradution_project/view/screens/payment_screen.dart';
 import 'package:gradution_project/view/widgets/clear_cart_dialog.dart';
@@ -98,7 +100,7 @@ class CartScreen extends StatelessWidget {
                       MyButton(
                         text: "Checkout",
                         onTap: () {
-                          restaurant.addOrder( userCart, 7);
+                          restaurant.addOrder( userCart,shared.getInt('id')!);
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => const PaymentScreen(),

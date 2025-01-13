@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradution_project/controller/user_controller.dart';
 import 'package:gradution_project/view/screens/settigns_screen.dart';
 import 'package:gradution_project/view/widgets/my_drawer_title.dart';
 
@@ -62,6 +63,7 @@ class MyDrawer extends StatelessWidget {
               text: 'Log Out',
               icon: Icons.logout,
               onTap: () {
+                
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },

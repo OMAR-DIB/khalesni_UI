@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class UserService {
   static const String baseUrl = 'http://localhost/khalesni/api';
-
+ 
   // Register API Call
   Future<Map<String, dynamic>> registerUser(String email, String password, String username) async {
     final url = Uri.parse('$baseUrl/register.php');

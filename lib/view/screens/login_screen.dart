@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradution_project/controller/switch_login_controller.dart';
+import 'package:gradution_project/main.dart';
+import 'package:gradution_project/models/restaurant.dart';
 import 'package:gradution_project/view/screens/admin_screen.dart';
 import 'package:gradution_project/view/screens/home_screen.dart';
 import 'package:gradution_project/view/widgets/my_button.dart';
@@ -16,7 +18,7 @@ class LoginScreen extends StatelessWidget {
     final TextEditingController passwordController = TextEditingController();
     final userService = UserService();
 
-    void login() async {
+    void login(String email, String pass) async {
       try {
         final response = await userService.loginUser(
           emailController.text,
@@ -25,8 +27,12 @@ class LoginScreen extends StatelessWidget {
 
         if (response['status'] == 'success') {
           final role = response['user']['role'];
+          
+          
+          shared.setInt('id', response['user']['id']);
+          shared.setString('name', response['user']['username']);
           emailController.clear();
-          passwordController.clear();   
+          passwordController.clear();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Login successful')),
           );
@@ -56,46 +62,52 @@ class LoginScreen extends StatelessWidget {
       }
     }
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.lock_open_rounded,
-            color: Theme.of(context).colorScheme.inversePrimary,
-            size: 100,
-          ),
-          const SizedBox(height: 20),
-          const Text("Food Delivery App"),
-          const SizedBox(height: 20),
-          MyTextField(hintText: "Email", controller: emailController),
-          const SizedBox(height: 20),
-          MyTextField(
-              hintText: "Password",
-              controller: passwordController,
-              obscureText: true),
-          const SizedBox(height: 20),
-          MyButton(
-            text: "Login",
-            onTap: login,
-            width: 119,
-            color: Theme.of(context).colorScheme.onSecondary,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('don\'t have an account?'),
-              TextButton(
-                onPressed: () {
-                  context.read<SwitchLoginController>().toggleLog();
-                },
-                child: Text('Register'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+    return ChangeNotifierProvider(
+        create: (context) => Restaurant(),
+        builder: (context, child) {
+          return Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.lock_open_rounded,
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                  size: 100,
+                ),
+                const SizedBox(height: 20),
+                const Text("Food Delivery App"),
+                const SizedBox(height: 20),
+                MyTextField(hintText: "Email", controller: emailController),
+                const SizedBox(height: 20),
+                MyTextField(
+                    hintText: "Password",
+                    controller: passwordController,
+                    obscureText: true),
+                const SizedBox(height: 20),
+                MyButton(
+                  text: "Login",
+                  onTap: () {
+                    login(emailController.text, passwordController.text);
+                  },
+                  width: 119,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('don\'t have an account?'),
+                    TextButton(
+                      onPressed: () {
+                        context.read<SwitchLoginController>().toggleLog();
+                      },
+                      child: Text('Register'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        });
   }
 }

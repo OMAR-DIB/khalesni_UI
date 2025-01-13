@@ -4,18 +4,19 @@ import 'package:gradution_project/models/restaurant.dart';
 import 'package:gradution_project/view/screens/auth_screen.dart';
 import 'package:gradution_project/view/screens/home_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+late SharedPreferences shared;
+void main() async {
+  shared = await SharedPreferences.getInstance();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (context) => ThemeProvider(),
-          
         ),
         ChangeNotifierProvider(
           create: (context) => Restaurant(),
-          
         ),
       ],
       child: const MyApp(),
