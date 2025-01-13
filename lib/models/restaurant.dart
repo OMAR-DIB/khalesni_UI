@@ -8,19 +8,44 @@ import 'package:http/http.dart' as http;
 class Order {
   final int id;
   final String status;
-  // Other fields as required
+  final String userName;
+  final Food items; // Add this field
+  final double totalPrice;
 
-  Order({required this.id, required this.status});
+  Order({
+    required this.id,
+    required this.status,
+    required this.userName,
+    required this.items, // Include this parameter in the constructor
+    required this.totalPrice,
+  });
 
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
-      id: json['id'] ?? 0,  // Handling null safely
-      status: json['status'] ?? 'Unknown',  // Handling null safely
-      // Map other fields as required
+      id: json['order_id'] ?? 0,
+      status: json['status'] ?? 'Unknown',
+      userName: json['user_name'] ?? 'Guest',
+      items: Food(
+        id: json['items']['food_id']?.toString() ?? '',
+        name: json['items']['food_details']['name'] ?? 'Unknown',
+        price: (json['items']['food_details']['price'] ?? 0).toDouble(),
+        description: '', // Optional
+        imgPath: json['items']['food_details']['imgPath'] ?? '',
+        categoryId: '', // Optional
+        categoryName: '', // Optional
+        quantity: json['items']['quantity'] ?? 0,
+        addons: [
+          Addones(
+            id: json['items']['addones_id']?.toString() ?? '',
+            name: json['items']['addons']['name'] ?? 'None',
+            price: (json['items']['addons']['price'] ?? 0).toDouble(),
+          )
+        ],
+      ),
+      totalPrice: (json['items']['total_price'] ?? 0).toDouble(),
     );
   }
 }
-
 
 class Restaurant extends ChangeNotifier {
   final String baseUrl = "http://localhost/khalesni/api/";
@@ -176,68 +201,105 @@ class Restaurant extends ChangeNotifier {
 
   List<Order> _orders = [];
 
-Future<void> addOrder(List<CartItem> cartItems, int userId) async {
-  try {
-    // Create a list of order items with the specified format
-    List<Map<String, dynamic>> orderItems = cartItems.map((item) {
-      double addonPrice = item.selectedAddons.fold(0, (sum, addon) => sum + addon.price);
-      double totalPrice = (item.food.price + addonPrice) * item.quantity;
-      return {
-        'food_id': item.food.id,
-        'addones_id': item.selectedAddons.isNotEmpty ? item.selectedAddons[0].id : null, // Assuming only one addon for simplicity
-        'quantity': item.quantity,
-      };
-    }).toList();
-
-    // Include the user_id and total_price in the main order structure
-    final requestData = {
-      'user_id': userId,
-      'items': orderItems,
-      'total_price': getTotalPrice(),
-    };
-    print(json.encode(requestData));
-    // POST request to the backend
-    final response = await http.post(
-      Uri.parse("http://localhost/khalesni/api/addOrder.php"),
-      body: json.encode(requestData),
-      headers: {'Content-Type': 'application/json'},
-    );
-
-    // Handle the response
-    if (response.statusCode == 200) {
-      final responseData = json.decode(response.body);
-      if (responseData != null && responseData is Map && responseData.containsKey('message')) {
-       
-        // Orders successfully added
-        notifyListeners();
-      } else {
-        throw Exception(responseData['error'] ?? 'Failed to add orders');
-      }
-    } else {
-      throw Exception('Failed to add orders');
-    }
-  } catch (error) {
-    throw error;
-  }
-}
-
-Future<void> fetchAllOrders() async {
+  Future<void> addOrder(List<CartItem> cartItems, int userId) async {
     try {
-      final response = await http.get(Uri.parse("http://localhost/khalesni/api/getAllOrders.php"));
+      // Create a list of order items with the specified format
+      List<Map<String, dynamic>> orderItems = cartItems.map((item) {
+        double addonPrice =
+            item.selectedAddons.fold(0, (sum, addon) => sum + addon.price);
+        double totalPrice = (item.food.price + addonPrice) * item.quantity;
+        return {
+          'food_id': item.food.id,
+          'addones_id': item.selectedAddons.isNotEmpty
+              ? item.selectedAddons[0].id
+              : null, // Assuming only one addon for simplicity
+          'quantity': item.quantity,
+        };
+      }).toList();
+
+      // Include the user_id and total_price in the main order structure
+      final requestData = {
+        'user_id': userId,
+        'items': orderItems,
+        'total_price': getTotalPrice(),
+      };
+      print(json.encode(requestData));
+      // POST request to the backend
+      final response = await http.post(
+        Uri.parse("http://localhost/khalesni/api/addOrder.php"),
+        body: json.encode(requestData),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      // Handle the response
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        if (responseData != null &&
+            responseData is Map &&
+            responseData.containsKey('message')) {
+          // Orders successfully added
+          notifyListeners();
+        } else {
+          throw Exception(responseData['error'] ?? 'Failed to add orders');
+        }
+      } else {
+        throw Exception('Failed to add orders');
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  Future<void> fetchAllOrders() async {
+    try {
+      final response = await http
+          .get(Uri.parse("http://localhost/khalesni/api/getAllOrders.php"));
 
       if (response.statusCode == 200) {
-        List<dynamic> data = json.decode(response.body);
-        _orders = data.map((order) => Order.fromJson(order)).toList();
-        notifyListeners();  // Notify listeners for UI updates
+        List<dynamic> data = json.decode(response.body); // Parse JSON response
+        print(data); // Debug: Print the data for verification
+
+        // Map JSON data to the `Order` model
+        _orders =
+            data.map<Order>((orderJson) => Order.fromJson(orderJson)).toList();
+
+        notifyListeners(); // Notify listeners for UI updates
       } else {
-        throw Exception('Failed to load orders');
+        throw Exception(
+            'Failed to load orders with status code: ${response.statusCode}');
       }
     } catch (e) {
+      // Log or throw the error for better debugging
+      print('Error fetching orders: $e');
       throw Exception('Failed to load orders: $e');
     }
   }
 
+  Future<void> deleteOrder(int orderId) async {
+    final response = await http.post(
+      Uri.parse("$baseUrl/deleteOrder.php"),
+      body: {'order_id': orderId.toString()},
+    );
 
+    if (response.statusCode != 200) {
+      throw Exception('Failed to delete order');
+    }
+  }
+
+  // Change order status
+  Future<void> changeOrderStatus(int orderId, String status) async {
+    final response = await http.post(
+      Uri.parse("$baseUrl/changeOrderStatus.php"),
+      body: {
+        'order_id': orderId.toString(),
+        'status': status,
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to update order status');
+    }
+  }
   // Additional methods to handle orders, etc.
 
   List<Order> get orders => _orders;
