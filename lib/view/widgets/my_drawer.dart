@@ -9,9 +9,9 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    // final screenHeight = MediaQuery.of(context).size.height;
     return Drawer(
-      // width:screenHeight * 0.06,
+     
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

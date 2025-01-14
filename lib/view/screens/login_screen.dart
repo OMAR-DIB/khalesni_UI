@@ -68,7 +68,6 @@ class LoginScreen extends StatelessWidget {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("hi"),
                 Icon(
                   Icons.lock_open_rounded,
                   color: Theme.of(context).colorScheme.inversePrimary,

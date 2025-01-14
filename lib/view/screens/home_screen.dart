@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradution_project/models/food.dart';
 import 'package:gradution_project/models/restaurant.dart';
+import 'package:gradution_project/view/screens/cart_screen.dart';
 import 'package:gradution_project/view/widgets/my_current_location.dart';
 import 'package:gradution_project/view/widgets/my_description_box.dart';
 import 'package:gradution_project/view/widgets/my_drawer.dart';
@@ -28,13 +29,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
 
     return ChangeNotifierProvider<Restaurant>.value(
       value: restaurantProvider,
       child: Builder(
         builder: (context) => Scaffold(
+        
           drawer: const MyDrawer(),
           body: Consumer<Restaurant>(
             builder: (context, restaurant, child) {
@@ -44,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CircularProgressIndicator(),
                 );
               }
-
               // Extract unique categories based on categoryId
               final Set<String> categoryIds = {};
               final List<Map<String, String>> uniqueCategories = [];
@@ -58,20 +57,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
                 }
               }
-
               return DefaultTabController(
                 length: uniqueCategories.length, // Number of tabs matches unique categories
                 child: NestedScrollView(
                   headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                    MySilverAppBar(
-                      title: const Text("M E N U"),
+                    MySilverAppBar(    
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const MyCurrentLocation(),
-                          const MyDescriptionBox(),
+                          const SizedBox(height: 30,),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 12),
+                            child:  MyCurrentLocation()),
+                          // const MyDescriptionBox(),
                           TabBar(
-                            isScrollable: true, // Tabs can scroll
+                            // padding: EdgeInsets.all(0),
+                            labelPadding: EdgeInsets.all(0),
+                            isScrollable: false, // Tabs can scroll
                             tabs: uniqueCategories
                                 .map((category) => Tab(
                                       text: category['name']!,
@@ -88,13 +90,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         category['id']!,
                         restaurant.menu,
                       );
-
                       if (categoryMenu.isEmpty) {
                         return const Center(
                           child: Text("No items available in this category"),
                         );
                       }
-
                       return ListView.builder(
                         itemCount: categoryMenu.length,
                         itemBuilder: (context, index) {

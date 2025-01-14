@@ -33,6 +33,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).themeData,
       home: AuthScreen(),
+      // showPerformanceOverlay: true,
+      // showSemanticsDebugger: true,
     );
   }
 }
