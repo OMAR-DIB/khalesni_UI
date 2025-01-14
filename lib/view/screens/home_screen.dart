@@ -29,12 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return ChangeNotifierProvider<Restaurant>.value(
       value: restaurantProvider,
       child: Builder(
         builder: (context) => Scaffold(
-        
           drawer: const MyDrawer(),
           body: Consumer<Restaurant>(
             builder: (context, restaurant, child) {
@@ -58,17 +56,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               }
               return DefaultTabController(
-                length: uniqueCategories.length, // Number of tabs matches unique categories
+                length: uniqueCategories
+                    .length, // Number of tabs matches unique categories
                 child: NestedScrollView(
                   headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                    MySilverAppBar(    
+                    MySilverAppBar(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 30,),
+                          const SizedBox(
+                            height: 30,
+                          ),
                           const Padding(
-                            padding: EdgeInsets.only(top: 12),
-                            child:  MyCurrentLocation()),
+                              padding: EdgeInsets.only(top: 12),
+                              child: MyCurrentLocation()),
                           // const MyDescriptionBox(),
                           TabBar(
                             // padding: EdgeInsets.all(0),
@@ -95,7 +96,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text("No items available in this category"),
                         );
                       }
-                      return ListView.builder(
+                      return GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, // Two items per row
+                          childAspectRatio:
+                              0.75, // Adjust the aspect ratio as needed
+                        ),
                         itemCount: categoryMenu.length,
                         itemBuilder: (context, index) {
                           return MyFoodTile(
