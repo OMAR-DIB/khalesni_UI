@@ -106,9 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context, index) {
                           return MyFoodTile(
                             food: categoryMenu[index],
-                            onTap: () {
-                              // Handle onTap
-                            },
+                            
+                            
                           );
                         },
                       );

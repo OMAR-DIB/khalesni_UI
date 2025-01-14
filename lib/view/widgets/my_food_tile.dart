@@ -1,14 +1,21 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:gradution_project/controller/addon_provider.dart';
 import 'package:gradution_project/models/food.dart';
+import 'package:gradution_project/models/restaurant.dart';
 import 'package:gradution_project/view/screens/food_screen.dart';
+import 'package:provider/provider.dart';
 
 class MyFoodTile extends StatelessWidget {
   final Food food;
-  final void Function()? onTap;
+  // final void Function()? onTap;
+  // final void Function()? onPress;
 
-  const MyFoodTile({super.key, required this.food, required this.onTap});
+  const MyFoodTile(
+      {super.key,
+      required this.food,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +69,11 @@ class MyFoodTile extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right:screenHeight * 0.01 , left: screenHeight * 0.01,bottom: 0,top: screenHeight * 0.01),
+              padding: EdgeInsets.only(
+                  right: screenHeight * 0.01,
+                  left: screenHeight * 0.01,
+                  bottom: 0,
+                  top: screenHeight * 0.01),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -89,21 +100,25 @@ class MyFoodTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                  Column(
-                    children: [
-                      Text(
-                        '\$${food.price}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                        ),
+                      Column(
+                        children: [
+                          Text(
+                            '\$${food.price}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          )
+                        ],
                       ),
-                      SizedBox(height: 20,)
-                    ],
-                  ),
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: TextButton.icon(
-                          onPressed: () {},
+                          onPressed: (){
+                            Provider.of<AddOnProvider>(context,listen: false).addItemToCart(food,{}, context);
+                          },
                           label: const Text(""),
                           icon: Icon(
                             Icons.add,
@@ -113,8 +128,11 @@ class MyFoodTile extends StatelessWidget {
                                 WidgetStateProperty.all<Color>(Colors.orange),
                             shape:
                                 WidgetStateProperty.all<RoundedRectangleBorder>(
-                               const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomRight: Radius.circular(20)),// Set to 0.0 for rectangular shape
+                              const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    bottomRight: Radius.circular(
+                                        20)), // Set to 0.0 for rectangular shape
                               ),
                             ),
                           ),

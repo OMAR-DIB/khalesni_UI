@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradution_project/controller/addon_provider.dart';
 import 'package:gradution_project/controller/theme_provider.dart';
 import 'package:gradution_project/models/restaurant.dart';
 import 'package:gradution_project/view/screens/auth_screen.dart';
@@ -17,6 +18,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => Restaurant(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AddOnProvider(),
         ),
       ],
       child: const MyApp(),

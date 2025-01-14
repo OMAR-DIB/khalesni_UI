@@ -122,9 +122,9 @@ class Restaurant extends ChangeNotifier {
         itemBuilder: (context, index) {
           return MyFoodTile(
             food: categoryMenu[index],
-            onTap: () {
-              // Handle onTap event here
-            },
+            // onTap: () {
+            //   // Handle onTap event here
+            // },
           );
         },
       );

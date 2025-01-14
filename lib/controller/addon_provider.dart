@@ -24,7 +24,7 @@ class AddOnProvider extends ChangeNotifier {
       .toList();
 
   void addItemToCart(Food food,Map<Addones, bool> selectedAddons,BuildContext context){
-    Navigator.of(context).pop();
+    // Navigator.of(context).pop();
     List<Addones> currentlySelectors = [];
     for (Addones addon in food.addons){
       if (selectedAddons[addon] == true){
