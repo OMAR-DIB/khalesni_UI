@@ -27,8 +27,6 @@ class LoginScreen extends StatelessWidget {
 
         if (response['status'] == 'success') {
           final role = response['user']['role'];
-          
-          
           shared.setInt('id', response['user']['id']);
           shared.setString('name', response['user']['username']);
           emailController.clear();
@@ -70,6 +68,7 @@ class LoginScreen extends StatelessWidget {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text("hi"),
                 Icon(
                   Icons.lock_open_rounded,
                   color: Theme.of(context).colorScheme.inversePrimary,
