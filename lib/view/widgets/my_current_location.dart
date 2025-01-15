@@ -60,10 +60,11 @@ class MyCurrentLocation extends StatelessWidget {
           ),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(
               height: 35,
-              width: 300,
+              width: 250,
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Search products...',

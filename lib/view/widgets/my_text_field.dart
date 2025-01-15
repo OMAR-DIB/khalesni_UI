@@ -26,7 +26,14 @@ class MyTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
             borderSide: const BorderSide(color: Colors.grey),
           ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide:const BorderSide(
+                color:  Color.fromARGB(
+                    255, 155, 108, 33)), // Border color when focused
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
         ),
       ),
     );

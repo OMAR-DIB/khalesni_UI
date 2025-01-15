@@ -97,7 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       }
                       return GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        
+                        gridDelegate:const  SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2, // Two items per row
                           childAspectRatio:
                               0.75, // Adjust the aspect ratio as needed
@@ -106,8 +107,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context, index) {
                           return MyFoodTile(
                             food: categoryMenu[index],
-                            
-                            
                           );
                         },
                       );

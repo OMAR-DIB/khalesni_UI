@@ -31,7 +31,7 @@ class CartScreen extends StatelessWidget {
                     clearCartDialog(context, restaurant); // Clear cart dialog
                   }
                 },
-                icon: const Icon(Icons.delete),
+                icon: Icon(Icons.delete,color: Colors.orange[900],),
               ),
             ],
           ),
@@ -58,7 +58,7 @@ class CartScreen extends StatelessWidget {
                               onPressed: () {
                                 Navigator.pop(context); // Navigate back to menu
                               },
-                              child: const Text("Browse Menu"),
+                              child: const Text("Browse Menu",style: TextStyle(color: Colors.orange),),
                             ),
                           ],
                         ),
@@ -91,13 +91,14 @@ class CartScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.primary,
+                              color: Colors.orange[400]
                             ),
                           ),
                         ],
                       ),
                       SizedBox(height: screenHeight * 0.02),
                       MyButton(
+                        color: Colors.orange,
                         text: "Checkout",
                         onTap: () {
                           restaurant.addOrder( userCart,shared.getInt('id')!);

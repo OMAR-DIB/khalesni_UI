@@ -31,92 +31,205 @@ class FoodScreen extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height *
-                      0.4, // 40% of the screen height
+                  height: MediaQuery.of(context).size.height * 0.4,
                   color: Colors.orange,
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        icon: Icon(Icons.arrow_back_ios_sharp),
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all<Color>(
-                              Colors.orange[200]!),
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: const Icon(Icons.arrow_back_ios_sharp),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 5),
+                            child: Text(
+                              "Food Details",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: const Icon(Icons.favorite_border),
+                          ),
+                        ],
                       ),
-                      Text("Food Details"),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        icon: Icon(Icons.heart_broken),
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all<Color>(
-                              Colors.orange[200]!),
+                      Container(
+                        height: 40,
+                        
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft:
+                                Radius.circular(45), // Rounded top-left corner
+                            topRight:
+                                Radius.circular(45), // Rounded top-right corner
+                          ),
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),
-                Container(
-                    height: MediaQuery.of(context).size.height * 0.6,
+                Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(45),
+                        topRight: Radius.circular(45),
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Text("data")],
-                    )),
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  food.name,
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  '\$${food.price.toStringAsFixed(2)}',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.orange[500],
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                 Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.orange[300],
+                            ),
+                            const SizedBox(
+                              width: 3,
+                            ),
+                            const Text("4.5"),
+                          ],
+                        ),
+                        const Row(
+                          children: [
+                            Icon(
+                              Icons.local_fire_department_rounded,
+                              color: Colors.red,
+                            ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text("100 cal"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.watch_later,
+                              color: Colors.orange[300],
+                            ),
+                            const SizedBox(
+                              width: 3,
+                            ),
+                            const Text("20 min"),
+                          ],
+                        ),
+                      ],
+                    ),
+                                const SizedBox(height: 4),
+                                const Text(
+                                  "About Food",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(food.description),
+                                const SizedBox(height: 16),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Consumer<AddOnProvider>(
+                                    builder: (context, controller, child) =>
+                                        ListView.builder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount: food.addons.length,
+                                      itemBuilder: (context, index) {
+                                        Addones addon = food.addons[index];
+                                        return CheckboxListTile(
+                                          title: Text(food.addons[index].name),
+                                          subtitle: Text(
+                                            '\$${food.addons[index].price.toString()}',
+                                          ),
+                                          value:
+                                              controller.selectedAddons[addon],
+                                          onChanged: (value) {
+                                            controller.toggleAddon(addon);
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Consumer<AddOnProvider>(
+                          builder: (context, controller, child) => MyButton(
+                            width: double.infinity,
+                            height: 50,
+                            text: "ADD TO CART",
+                            onTap: () {
+                              controller.addItemToCart(
+                                  food, controller.selectedAddons, context);
+                              Navigator.of(context).pop();
+                            },
+                            color: Colors.orange[400],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
             // Positioned CircleAvatar
-
             Positioned(
-              top: MediaQuery.of(context).size.height *
-                  0.35, // Position under orange section
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(45),
-                    topRight: Radius.circular(45),
-                  ),
-                ),
-                padding: const EdgeInsets.only(
-                    top: 130, left: 16, right: 16), // Adjust for spacing
-                child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start, // Align text to the start
-                  children: [
-                    Text(
-                      food.name,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8), // Spacing between name and price
-                    Text(
-                      '\$${food.price.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // CircleAvatar for the food image
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.25, // Adjust position
-              left: MediaQuery.of(context).size.width / 2 -
-                  100, // Center the image
+              top: MediaQuery.of(context).size.height * 0.10,
+              left: MediaQuery.of(context).size.width / 2 - 100,
               child: CircleAvatar(
-                radius: 100, // Adjust size
+                radius: 100,
                 backgroundColor: Colors.white,
                 child: ClipOval(
                   child: Image.file(
@@ -130,26 +243,6 @@ class FoodScreen extends StatelessWidget {
             ),
           ],
 
-          //       Padding(
-          //         padding: const EdgeInsets.all(12.0),
-          //         child: Column(
-          //           crossAxisAlignment: CrossAxisAlignment.start,
-          //           children: [
-          //             Text(
-          //               food.name,
-          //               style: const TextStyle(
-          //                   fontSize: 20, fontWeight: FontWeight.bold),
-          //             ),
-          //             Text(
-          //               food.price.toString(),
-          //               style: TextStyle(
-          //                   fontSize: 20,
-          //                   fontWeight: FontWeight.bold,
-          //                   color:
-          //                       Theme.of(context).colorScheme.inversePrimary),
-          //             ),
-          //             Text(food.description),
-          //             const SizedBox(height: 16),
           //             // Ensure ListView has a height
           //             Text(
           //               "Available Add-ons:",
@@ -189,23 +282,7 @@ class FoodScreen extends StatelessWidget {
           //                 ),
           //               ),
           //             ),
-          //             Consumer<AddOnProvider>(
-          //               builder: (context, controller, child) => MyButton(
-          //                 text: "ADD TO CARd",
-          //                 onTap: () {
-          //                   controller.addItemToCart(
-          //                       food, controller.selectedAddons, context);
-          //                   Navigator.of(context).pop();
-          //                 },
-          //                 color: Theme.of(context).colorScheme.inversePrimary,
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
+          //
         ),
       ),
     );

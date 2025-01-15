@@ -55,6 +55,7 @@ class PaymentScreen extends StatelessWidget {
             ),
             // Spacer(),
             MyButton(
+              color: Colors.orange,
               text: 'PaY nOw',
               onTap: () {
                 Navigator.of(context).pop();
