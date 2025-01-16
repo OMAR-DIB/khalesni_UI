@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gradution_project/controller/user_controller.dart';
 import 'package:gradution_project/main.dart';
 import 'package:gradution_project/models/restaurant.dart';
+import 'package:gradution_project/routes/app_route.dart';
 import 'package:gradution_project/view/screens/payment_screen.dart';
 import 'package:gradution_project/view/widgets/clear_cart_dialog.dart';
 import 'package:gradution_project/view/widgets/my_button.dart';
@@ -102,11 +103,12 @@ class CartScreen extends StatelessWidget {
                         text: "Checkout",
                         onTap: () {
                           restaurant.addOrder( userCart,shared.getInt('id')!);
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const PaymentScreen(),
-                            ),
-                          );
+                          // Navigator.of(context).push(
+                          //   MaterialPageRoute(
+                          //     builder: (context) => const PaymentScreen(),
+                          //   ),
+                          // );
+                          Navigator.pushNamed(context, AppRoute.payment);
                         },
                         width: double.infinity,
                         height: screenHeight * 0.09,

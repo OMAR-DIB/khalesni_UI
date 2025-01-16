@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradution_project/controller/switch_login_controller.dart';
+import 'package:gradution_project/routes/app_route.dart';
 import 'package:gradution_project/view/screens/login_screen.dart';
 import 'package:gradution_project/view/widgets/my_button.dart';
 import 'package:gradution_project/view/widgets/my_text_field.dart';
@@ -37,9 +38,7 @@ class RegisterScreen extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Registration successful')),
           );
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const LoginScreen()),
-          );
+          Navigator.pushReplacementNamed(context, AppRoute.login);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(response['message'])),

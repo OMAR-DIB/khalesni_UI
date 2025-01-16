@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gradution_project/controller/switch_login_controller.dart';
 import 'package:gradution_project/main.dart';
 import 'package:gradution_project/models/restaurant.dart';
+import 'package:gradution_project/routes/app_route.dart';
 import 'package:gradution_project/view/screens/admin_screen.dart';
 import 'package:gradution_project/view/screens/home_screen.dart';
 import 'package:gradution_project/view/widgets/my_button.dart';
@@ -36,17 +37,12 @@ class LoginScreen extends StatelessWidget {
           );
 
           if (role == 'admin') {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                  builder: (context) =>
-                      const AdminScreen()), // Navigate to AdminScreen
-            );
+          
+          
+            Navigator.pushReplacementNamed(context, AppRoute.admin);
           } else if (role == 'customer') {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                  builder: (context) =>
-                      const HomeScreen()), // Navigate to HomeScreen
-            );
+             Navigator.pushReplacementNamed(context, AppRoute.home);
+                      
           }
         } else {
           ScaffoldMessenger.of(context).showSnackBar(

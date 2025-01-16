@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gradution_project/models/food.dart';
+import 'package:gradution_project/routes/app_route.dart';
 import 'package:gradution_project/view/screens/add_new_item.dart';
 import 'package:gradution_project/view/screens/admin_food_screen.dart';
 import 'package:gradution_project/view/screens/order_screen.dart';
@@ -76,11 +77,12 @@ void deleteFoodItem(int id) async {
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => OrderScreen(),
-                ),
-              );
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => OrderScreen(),
+              //   ),
+              // );
+              Navigator.pushNamed(context, AppRoute.order);
             },
           ),
         ],
@@ -139,11 +141,12 @@ void deleteFoodItem(int id) async {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Navigate to Add Food Screen
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => AddNewItem(),
-            ),
-          );
+          // Navigator.of(context).push(
+          //   MaterialPageRoute(
+          //     builder: (context) => AddNewItem(),
+          //   ),
+          // );
+          Navigator.pushNamed(context, AppRoute.addNewItem);
         },
         child: Icon(Icons.add),
       ),

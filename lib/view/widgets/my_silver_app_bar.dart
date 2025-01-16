@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradution_project/routes/app_route.dart';
 import 'package:gradution_project/view/screens/cart_screen.dart';
 
 class MySilverAppBar extends StatelessWidget {
@@ -22,11 +23,12 @@ class MySilverAppBar extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const CartScreen(),
-              ),
-            );
+            // Navigator.of(context).push(
+            //   MaterialPageRoute(
+            //     builder: (context) => const CartScreen(),
+            //   ),
+            // );
+            Navigator.pushNamed(context, AppRoute.card);
           },
           style: ButtonStyle(
                 // iconSize: WidgetStateProperty.all<double>(12),

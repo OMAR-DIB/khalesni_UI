@@ -49,16 +49,7 @@ class MyCurrentLocation extends StatelessWidget {
             ],
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.only(top: 3.0),
-          child: Text(
-            "Find your Food",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
+        
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

@@ -67,6 +67,7 @@ class MyCartTile extends StatelessWidget {
                 ],
               ),
             ),
+            
             Padding(
               padding: EdgeInsets.only(
                   bottom: screenWidth * 0.05, left: screenWidth * 0.04),
@@ -104,7 +105,8 @@ class MyCartTile extends StatelessWidget {
                       .toList(),
                 ),
               ),
-            )
+            ),
+           
           ],
         ),
       ),
