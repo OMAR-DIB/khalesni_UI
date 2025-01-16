@@ -12,6 +12,7 @@ import 'package:gradution_project/view/screens/payment_screen.dart';
 import 'package:gradution_project/view/screens/register_screen.dart';
 import 'package:gradution_project/view/screens/settigns_screen.dart';
 import 'package:gradution_project/view/screens/splash_screen.dart';
+import 'package:gradution_project/view/screens/where_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -36,6 +37,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => CartScreen());
       case AppRoute.payment:
         return MaterialPageRoute(builder: (_) => PaymentScreen());
+      case AppRoute.where:
+        return MaterialPageRoute(builder: (_) => WhereScreen());
     }
     return errorRoute(settings);
   }

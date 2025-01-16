@@ -108,7 +108,9 @@ class CartScreen extends StatelessWidget {
                           //     builder: (context) => const PaymentScreen(),
                           //   ),
                           // );
-                          Navigator.pushNamed(context, AppRoute.payment);
+                          // Navigator.pushNamed(context, AppRoute.payment);
+                          Navigator.pushNamed(context, AppRoute.where);
+
                         },
                         width: double.infinity,
                         height: screenHeight * 0.09,

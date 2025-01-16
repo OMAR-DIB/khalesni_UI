@@ -17,7 +17,7 @@ class MyCartTile extends StatelessWidget {
     return Consumer<Restaurant>(
       builder: (context, restaurant, child) => Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
+          color: const Color.fromARGB(255, 233, 230, 230),
           borderRadius: BorderRadius.circular(8),
         ),
         margin: EdgeInsets.symmetric(
@@ -91,7 +91,7 @@ class MyCartTile extends StatelessWidget {
                           ),
                           shape: StadiumBorder(
                               side: BorderSide(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Colors.white,
                           )),
                           onSelected: (Value) {},
                           backgroundColor:
