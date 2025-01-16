@@ -73,20 +73,16 @@ void deleteFoodItem(int id) async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.orange[300],
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: Icon(Icons.shopping_cart_outlined),
             onPressed: (){
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (context) => OrderScreen(),
-              //   ),
-              // );
               Navigator.pushNamed(context, AppRoute.order);
             },
           ),
         ],
-        title: Text('Admin Panel'),
+        title: const Text('Admin Panel'),
       ),
       body: ListView.builder(
         itemCount: foodItems.length,
@@ -107,7 +103,7 @@ void deleteFoodItem(int id) async {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: const Icon(Icons.edit),
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -128,7 +124,7 @@ void deleteFoodItem(int id) async {
                   },
                 ),
                 IconButton(
-                  icon: Icon(Icons.delete),
+                  icon: const Icon(Icons.delete),
                   onPressed: () {
                     deleteFoodItem(int.parse(food['id']));
                   },

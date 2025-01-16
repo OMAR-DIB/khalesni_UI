@@ -8,57 +8,68 @@ class WhereScreen extends StatelessWidget {
   Widget build(BuildContext context) {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
+  void showSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      duration: Duration(seconds: 2),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Payment Page'),
-        backgroundColor: Colors.blue,
+        title: const Text('Drop Location'),
+        backgroundColor: Colors.orange,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Phone Number',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             TextFormField(
               controller: phoneController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter your phone number',
               ),
               keyboardType: TextInputType.phone,
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'Location',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             TextFormField(
               controller: locationController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter your location',
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
                   onPressed: () {
                     // Handle cash payment logic here
+                    phoneController.clear();
+                    locationController.clear();
                     Navigator.of(context).pop();
-                    print('Cash Payment Selected');
+                    Navigator.of(context).pop();
+                    showSnackbar(context, 'cash Payment Selected');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
-                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                   ),
-                  child: Text('Cash'),
+                  child: const Text('Cash'),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -69,12 +80,14 @@ class WhereScreen extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                   ),
-                  child: Text('By Visa'),
+                  child: const Text('By Visa'),
                 ),
               ],
             ),
+            const SizedBox(height: 32,),
+            const Center(child: Icon(Icons.delivery_dining_sharp,color: Colors.orange,size: 155,)),
           ],
         ),
       ),

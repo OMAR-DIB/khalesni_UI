@@ -1,0 +1,161 @@
+[33mcommit 665461618276797092f6b3eb03934afad0f042f9[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmodify[m[33m, [m[1;31morigin/modify[m[33m)[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Thu Jan 16 16:57:15 2025 +0200
+
+    ui and admin
+
+[33mcommit bc904e876359603023740d642c558a52dbd091a3[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Thu Jan 16 07:31:05 2025 +0200
+
+    admin ui and auth provider
+
+[33mcommit 24605898ab5efc5efbff4a9df611c4ca7e22ef39[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Wed Jan 15 19:17:19 2025 +0200
+
+    admin ui
+
+[33mcommit 4fe8c9316aa051522ef05641381c7a183f46397a[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Wed Jan 15 00:43:57 2025 +0200
+
+    complete add to cart
+
+[33mcommit 9170db60b41e45f362a72e066f598b5bef2fbd7d[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Tue Jan 14 18:54:28 2025 +0200
+
+    add to cart
+
+[33mcommit d6db329a93c34dffb96be9e340461ff3c32e9e33[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Tue Jan 14 15:14:37 2025 +0200
+
+    food_tile card
+
+[33mcommit 5f30164c28f810f77446566fc9ce99b38b0a52b5[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Tue Jan 14 11:39:59 2025 +0200
+
+    test
+
+[33mcommit 16b3cf0d97c417041ce27d4ad6a09f6a9bc657b4[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Tue Jan 14 00:42:44 2025 +0200
+
+    finish core
+
+[33mcommit e95823207dadc93777978d37bdc5af815a1aecf8[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Mon Jan 13 17:53:12 2025 +0200
+
+    get all order to UI
+
+[33mcommit 6cdc707f699ff4940bd9e2fa97a0e53f117eed4c[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Fri Jan 10 15:52:13 2025 +0200
+
+    order management -admin
+
+[33mcommit 280519aba764ce868c5ca76e86d7e7cc076bd3bb[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Sat Jan 4 17:11:06 2025 +0200
+
+    apply changes
+
+[33mcommit 2146711f624b60afac38af30839be3d8daa1ed37[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Sun Dec 15 22:50:10 2024 +0200
+
+    add and edit neded admin
+
+[33mcommit 794c65a62e01dff3fcec6de869cc2e0273c4270f[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Sun Dec 1 13:40:35 2024 +0200
+
+    admin panel next
+
+[33mcommit 5a28f7a81846ea6d26b3ca2b45579a42655ca0fc[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Fri Nov 29 21:49:49 2024 +0200
+
+    fix category bug
+
+[33mcommit 98301aaf8b9917187498485032ecb80997184ee0[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Fri Nov 29 21:34:57 2024 +0200
+
+    get all product api
+
+[33mcommit 0198a1b2777e8fdb0da6522bd8629416d5f3cb01[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Fri Nov 22 17:04:46 2024 +0200
+
+    home and cart screen responsive done!!
+
+[33mcommit 25f039fdf2871de020f7165a6603c5c2dc9b3b79[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Thu Nov 21 21:52:23 2024 +0200
+
+    start responsive design
+
+[33mcommit e1cd13b15f6647e43681bb1c5d13a4707caf063c[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Wed Oct 23 23:25:10 2024 +0300
+
+    start playing arround
+
+[33mcommit bb9cfae150db51a41988262bbbcf03dba11dc5c4[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Wed Oct 23 22:01:09 2024 +0300
+
+    credit card should be added
+
+[33mcommit bd65e18cdc38bafccad71e45203444acdf54f2a3[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Wed Oct 23 17:29:49 2024 +0300
+
+    clear cart button needed
+
+[33mcommit 76f8c4be56ae9e580cd551f32e2c8410fe7756d0[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Wed Oct 23 01:09:29 2024 +0300
+
+    need better Maintenance for provider Restarant
+
+[33mcommit f51bb8ab8281f172158dba1e4507a77ea47a8bab[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Wed Oct 16 17:12:44 2024 +0300
+
+    cart page
+
+[33mcommit c9d9d35bec81f1baf70f3b0bc6b6f04d8b0fa8f7[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Wed Oct 16 00:21:51 2024 +0300
+
+    start add to cart
+
+[33mcommit 3c4f74296b59237b7159a21075a7dc448abb719b[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Tue Oct 15 16:15:13 2024 +0300
+
+    home page done
+
+[33mcommit c1b2988e7efc92058822b86f26980cc21c27804b[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Tue Oct 15 00:57:41 2024 +0300
+
+    next step Tab bar for categories
+
+[33mcommit f6412c2e5370a2f61d6b4fd67d03bdefa2408340[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Mon Oct 14 13:42:48 2024 +0300
+
+    not complete:
+
+[33mcommit c229b65a04fc71a29d07d96bb68be5ef07749600[m
+Author: OMAR-DIB <omardib759@gmail.com>
+Date:   Sun Oct 13 22:33:29 2024 +0300
+
+    login and registration ui
