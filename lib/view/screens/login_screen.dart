@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
           if (role == 'admin') {
           
           
-            Navigator.pushReplacementNamed(context, AppRoute.admin);
+            Navigator.pushReplacementNamed(context, AppRoute.test);
           } else if (role == 'customer') {
              Navigator.pushReplacementNamed(context, AppRoute.home);
                       
@@ -97,7 +97,7 @@ class LoginScreen extends StatelessWidget {
                     const Text('don\'t have an account?',style: TextStyle(fontWeight: FontWeight.w900),),
                     TextButton(
                       onPressed: () {
-                        context.read<SwitchLoginController>().toggleLog();
+                         Navigator.pushReplacementNamed(context, AppRoute.register);
                       },
                       child: const Text('Register',style: TextStyle(color:  Color.fromARGB(255, 237, 161, 40),),),
                     ),

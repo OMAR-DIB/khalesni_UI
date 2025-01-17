@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradution_project/controller/addon_provider.dart';
+import 'package:gradution_project/controller/switch_login_controller.dart';
 import 'package:gradution_project/controller/theme_provider.dart';
 import 'package:gradution_project/models/restaurant.dart';
 import 'package:gradution_project/routes/app_route.dart';
@@ -24,6 +25,9 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => AddOnProvider(),
         ),
+        // ChangeNotifierProvider(
+        //   create: (context) => SwitchLoginController(),
+        // ),
       ],
       child: const MyApp(),
     ),

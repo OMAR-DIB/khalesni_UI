@@ -96,7 +96,7 @@ class RegisterScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  context.read<SwitchLoginController>().toggleLog();
+                   Navigator.pushReplacementNamed(context, AppRoute.login);
                 },
                 child: const Text(
                   'Login',

@@ -11,4 +11,5 @@ class AppRoute {
   static const String order = "/order";
   static const String setting = "/setting";
   static const String where = "/where";
+  static const String test = "/test";
 }

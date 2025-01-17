@@ -72,18 +72,7 @@ void deleteFoodItem(int id) async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.orange[300],
-        actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_cart_outlined),
-            onPressed: (){
-              Navigator.pushNamed(context, AppRoute.order);
-            },
-          ),
-        ],
-        title: const Text('Admin Panel'),
-      ),
+      
       body: ListView.builder(
         itemCount: foodItems.length,
         itemBuilder: (context, index) {
@@ -134,18 +123,18 @@ void deleteFoodItem(int id) async {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navigate to Add Food Screen
-          // Navigator.of(context).push(
-          //   MaterialPageRoute(
-          //     builder: (context) => AddNewItem(),
-          //   ),
-          // );
-          Navigator.pushNamed(context, AppRoute.addNewItem);
-        },
-        child: Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     // Navigate to Add Food Screen
+      //     // Navigator.of(context).push(
+      //     //   MaterialPageRoute(
+      //     //     builder: (context) => AddNewItem(),
+      //     //   ),
+      //     // );
+      //     Navigator.pushNamed(context, AppRoute.addNewItem);
+      //   },
+      //   child: Icon(Icons.add),
+      // ),
     );
   }
 }

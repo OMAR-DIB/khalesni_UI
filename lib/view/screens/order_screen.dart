@@ -27,9 +27,6 @@ class _OrderScreenState extends State<OrderScreen> {
     final orderProvider = Provider.of<Restaurant>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Orders'),
-      ),
       body: FutureBuilder(
         future: _fetchOrdersFuture,
         builder: (context, snapshot) {

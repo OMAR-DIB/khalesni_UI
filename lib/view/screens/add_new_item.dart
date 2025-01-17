@@ -127,7 +127,7 @@ Future<void> fetchCategories() async {
 
       if (response.statusCode == 200 && responseData['status'] == 'success') {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Product added successfully!')),
+          const SnackBar(content: Text('Product added successfully!')),
         );
         Navigator.pop(context); // Navigate back after successful addition
       } else {
@@ -159,36 +159,35 @@ Future<void> fetchCategories() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Add New Product")),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Form(
                 key: _formKey,
                 child: ListView(
                   children: [
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Name'),
+                      decoration: const InputDecoration(labelText: 'Name'),
                       validator: (value) =>
                           value!.isEmpty ? "Name is required" : null,
                       onSaved: (value) => name = value!,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Price'),
+                      decoration: const InputDecoration(labelText: 'Price'),
                       keyboardType: TextInputType.number,
                       validator: (value) =>
                           value!.isEmpty ? "Price is required" : null,
                       onSaved: (value) => price = double.parse(value!),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Description'),
+                      decoration: const InputDecoration(labelText: 'Description'),
                       validator: (value) =>
                           value!.isEmpty ? "Description is required" : null,
                       onSaved: (value) => description = value!,
                     ),
                     DropdownButtonFormField<int>(
-                      decoration: InputDecoration(labelText: 'Category'),
+                      decoration: const InputDecoration(labelText: 'Category'),
                       items: categories.map<DropdownMenuItem<int>>((category) {
                         return DropdownMenuItem<int>(
                           value: int.parse(category['id'].toString()),
@@ -204,7 +203,7 @@ Future<void> fetchCategories() async {
                           value == null ? "Category is required" : null,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Quantity'),
+                      decoration: const InputDecoration(labelText: 'Quantity'),
                       keyboardType: TextInputType.number,
                       validator: (value) =>
                           value!.isEmpty ? "Quantity is required" : null,
@@ -212,13 +211,13 @@ Future<void> fetchCategories() async {
                     ),
                      ElevatedButton(
                       onPressed: pickImage,
-                      child: Text("Pick Image"),
+                      child: const Text("Pick Image"),
                     ),
                     imgPath.isNotEmpty
                         ? Image.file(File(imgPath), height: 100)
                         : Container(),
-                    SizedBox(height: 20),
-                    Text(
+                    const SizedBox(height: 20),
+                    const Text(
                       "Select Addons",
                       style: TextStyle(
                         fontSize: 16,
@@ -228,7 +227,7 @@ Future<void> fetchCategories() async {
                     //create checkbox list
                     ListView.builder(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: addons.length,
                       itemBuilder: (context, index) {
                         final addon = addons[index];
@@ -244,10 +243,10 @@ Future<void> fetchCategories() async {
                       },
                     ),
 
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: addProduct,
-                      child: Text("Add Product"),
+                      child: const Text("Add Product"),
                     ),
                   ],
                 ),
