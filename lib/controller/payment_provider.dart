@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_credit_card/flutter_credit_card.dart';
 // import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 class PaymentProvider with ChangeNotifier {
@@ -9,13 +10,13 @@ class PaymentProvider with ChangeNotifier {
   String cvvCode = '';
   bool isCvvFocused = false;
 
-  // void updateCardDetails(CreditCardModel data) {
-  //   cardNumber = data.cardNumber;
-  //   expiryDate = data.expiryDate;
-  //   cardHolderName = data.cardHolderName;
-  //   cvvCode = data.cvvCode;
-  //   notifyListeners();
-  // }
+  void updateCardDetails(CreditCardModel data) {
+    cardNumber = data.cardNumber;
+    expiryDate = data.expiryDate;
+    cardHolderName = data.cardHolderName;
+    cvvCode = data.cvvCode;
+    notifyListeners();
+  }
 
   bool validateForm() {
     return formKey.currentState?.validate() ?? false;

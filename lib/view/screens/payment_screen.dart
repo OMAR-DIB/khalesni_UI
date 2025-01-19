@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:provider/provider.dart';
 import 'package:gradution_project/view/widgets/my_button.dart';
 import 'package:gradution_project/controller/payment_provider.dart'; // Adjust path if necessary
@@ -28,27 +28,26 @@ class PaymentScreen extends StatelessWidget {
               builder: (context, provider, _) {
                 return Column(
                   children: [
-                    //    CreditCardWidget(
-                    //     padding: 0,
-                    //     width : screenWidth*0.9,
-                    //     height: screenHeight*0.3,
-                    //     cardNumber: provider.cardNumber,
-                    //     expiryDate: provider.expiryDate,
-                    //     cardHolderName: provider.cardHolderName,
-                    //     cvvCode: provider.cvvCode,
-                    //     showBackView: provider.isCvvFocused,
-                    //     onCreditCardWidgetChange: (p0) {},
-                    //   ),
-                    // CreditCardForm(
-                    //   formKey: provider.formKey,
-                    //   cardNumber: provider.cardNumber,
-                    //   expiryDate: provider.expiryDate,
-                    //   cardHolderName: provider.cardHolderName,
-                    //   cvvCode: provider.cvvCode,
-                    //   onCreditCardModelChange: (data) {
-                    //     provider.updateCardDetails(data);
-                    //   },
-                    // ),
+                    CreditCardWidget(
+                      width: screenWidth * 0.9,
+                      height: screenHeight * 0.3,
+                      cardNumber: provider.cardNumber,
+                      expiryDate: provider.expiryDate,
+                      cardHolderName: provider.cardHolderName,
+                      cvvCode: provider.cvvCode,
+                      showBackView: provider.isCvvFocused,
+                      onCreditCardWidgetChange: (p0) {},
+                    ),
+                    CreditCardForm(
+                      formKey: provider.formKey,
+                      cardNumber: provider.cardNumber,
+                      expiryDate: provider.expiryDate,
+                      cardHolderName: provider.cardHolderName,
+                      cvvCode: provider.cvvCode,
+                      onCreditCardModelChange: (data) {
+                        provider.updateCardDetails(data);
+                      },
+                    ),
                   ],
                 );
               },
@@ -60,10 +59,10 @@ class PaymentScreen extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
-               },
+              },
             ),
-           SizedBox(
-              height: screenHeight*0.02,
+            SizedBox(
+              height: screenHeight * 0.02,
             ),
           ],
         ),

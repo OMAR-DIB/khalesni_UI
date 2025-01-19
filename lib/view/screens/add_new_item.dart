@@ -6,10 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 class AddNewItem extends StatefulWidget {
-  const AddNewItem({super.key});
-
   @override
-  State<AddNewItem> createState() => _AddNewItemState();
+  _AddNewItemState createState() => _AddNewItemState();
 }
 
 class _AddNewItemState extends State<AddNewItem> {
@@ -29,29 +27,37 @@ class _AddNewItemState extends State<AddNewItem> {
   List<dynamic> categories = [];
 
   final ImagePicker _picker = ImagePicker();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController quantityController = TextEditingController();
 
-Future<void> fetchCategories() async {
-  try {
-    final response = await http
-        .get(Uri.parse('http://localhost/khalesni/api/getAllCategory.php'));
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      if (data['status'] == 'success') {
-        setState(() {
-          categories = data['categories'];
-        });
-      } else {
-        throw Exception(data['message']);
-      }
-    } else {
-      throw Exception("Failed to fetch categories.");
-    }
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error: $e')),
-    );
+  @override
+  void initState() {
+    super.initState();
+    fetchAddons();
+    fetchCategories();
   }
-}
+
+  Future<void> fetchCategories() async {
+    try {
+      final response = await http.get(Uri.parse('http://localhost/khalesni/api/getAllCategory.php'));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['status'] == 'success') {
+          setState(() {
+            categories = data['categories'];
+          });
+        } else {
+          throw Exception(data['message']);
+        }
+      } else {
+        throw Exception("Failed to fetch categories.");
+      }
+    } catch (e) {
+      _showErrorSnackBar('Error: $e');
+    }
+  }
 
   Future<void> pickImage() async {
     try {
@@ -66,16 +72,13 @@ Future<void> fetchCategories() async {
         });
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error picking image: $e')),
-      );
+      _showErrorSnackBar('Error picking image: $e');
     }
   }
-  
+
   Future<void> fetchAddons() async {
     try {
-      final response = await http
-          .get(Uri.parse('http://localhost/khalesni/api/getAllAddones.php'));
+      final response = await http.get(Uri.parse('http://localhost/khalesni/api/getAllAddones.php'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         if (data['status'] == 'success') {
@@ -93,17 +96,28 @@ Future<void> fetchCategories() async {
       setState(() {
         isLoading = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      _showErrorSnackBar('Error: $e');
     }
   }
 
   Future<void> addProduct() async {
-    // Validate the form
     if (!_formKey.currentState!.validate()) return;
 
-    _formKey.currentState!.save();
+    // Validate additional fields
+    if (imgPath.isEmpty) {
+      _showErrorSnackBar('Image is required');
+      return;
+    }
+    if (categoryId == 0) {
+      _showErrorSnackBar('Please select a category');
+      return;
+    }
+
+    // Fetch values from TextEditingControllers
+    final name = nameController.text.trim();
+    final price = double.tryParse(priceController.text) ?? 0.0;
+    final description = descriptionController.text.trim();
+    final quantity = int.tryParse(quantityController.text) ?? 0;
 
     // Prepare the product data
     final productData = {
@@ -113,8 +127,11 @@ Future<void> fetchCategories() async {
       "category_id": categoryId,
       "imgPath": imgPath,
       "quantity": quantity,
-      "addons": selectedAddonIds,
+      "addons": selectedAddonIds.isEmpty ? [] : selectedAddonIds,
     };
+
+    // Log the productData to debug if needed
+    print('Product Data: ${json.encode(productData)}');
 
     try {
       final response = await http.post(
@@ -126,17 +143,14 @@ Future<void> fetchCategories() async {
       final responseData = json.decode(response.body);
 
       if (response.statusCode == 200 && responseData['status'] == 'success') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Product added successfully!')),
-        );
-        Navigator.pop(context); // Navigate back after successful addition
+        _showSuccessSnackBar('Product added successfully!');
+        _resetForm();
       } else {
-        throw Exception(responseData['message'] ?? "Failed to add product.");
+        final errorMessage = responseData['message'] ?? "Failed to add product. Please try again.";
+        _showErrorSnackBar('Error Message: $errorMessage');
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      _showErrorSnackBar('Error: $e');
     }
   }
 
@@ -150,12 +164,27 @@ Future<void> fetchCategories() async {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    fetchAddons();
-    fetchCategories();
+  void _showErrorSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
+
+  void _showSuccessSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  void _resetForm() {
+    _formKey.currentState!.reset();
+    nameController.clear();
+    priceController.clear();
+    descriptionController.clear();
+    quantityController.clear();
+    setState(() {
+      imgPath = '';
+      categoryId = 0;
+      selectedAddonIds.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,26 +197,24 @@ Future<void> fetchCategories() async {
                 child: ListView(
                   children: [
                     TextFormField(
+                      controller: nameController,
                       decoration: const InputDecoration(labelText: 'Name'),
-                      validator: (value) =>
-                          value!.isEmpty ? "Name is required" : null,
-                      onSaved: (value) => name = value!,
+                      validator: (value) => value!.isEmpty ? "Name is required" : null,
                     ),
                     TextFormField(
+                      controller: priceController,
                       decoration: const InputDecoration(labelText: 'Price'),
                       keyboardType: TextInputType.number,
-                      validator: (value) =>
-                          value!.isEmpty ? "Price is required" : null,
-                      onSaved: (value) => price = double.parse(value!),
+                      validator: (value) => value!.isEmpty ? "Price is required" : null,
                     ),
                     TextFormField(
+                      controller: descriptionController,
                       decoration: const InputDecoration(labelText: 'Description'),
-                      validator: (value) =>
-                          value!.isEmpty ? "Description is required" : null,
-                      onSaved: (value) => description = value!,
+                      validator: (value) => value!.isEmpty ? "Description is required" : null,
                     ),
                     DropdownButtonFormField<int>(
                       decoration: const InputDecoration(labelText: 'Category'),
+                      value: categoryId != 0 ? categoryId : null,
                       items: categories.map<DropdownMenuItem<int>>((category) {
                         return DropdownMenuItem<int>(
                           value: int.parse(category['id'].toString()),
@@ -199,17 +226,15 @@ Future<void> fetchCategories() async {
                           categoryId = value!;
                         });
                       },
-                      validator: (value) =>
-                          value == null ? "Category is required" : null,
+                      validator: (value) => value == 0 ? "Category is required" : null,
                     ),
                     TextFormField(
+                      controller: quantityController,
                       decoration: const InputDecoration(labelText: 'Quantity'),
                       keyboardType: TextInputType.number,
-                      validator: (value) =>
-                          value!.isEmpty ? "Quantity is required" : null,
-                      onSaved: (value) => quantity = int.parse(value!),
+                      validator: (value) => value!.isEmpty ? "Quantity is required" : null,
                     ),
-                     ElevatedButton(
+                    ElevatedButton(
                       onPressed: pickImage,
                       child: const Text("Pick Image"),
                     ),
@@ -224,15 +249,13 @@ Future<void> fetchCategories() async {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    //create checkbox list
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: addons.length,
                       itemBuilder: (context, index) {
                         final addon = addons[index];
-                        final addonId = int.parse(addon['id']
-                            .toString()); // Ensure addon ID is an integer
+                        final addonId = int.parse(addon['id'].toString());
                         return CheckboxListTile(
                           title: Text(addon['name']),
                           value: selectedAddonIds.contains(addonId),
@@ -242,7 +265,6 @@ Future<void> fetchCategories() async {
                         );
                       },
                     ),
-
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: addProduct,
