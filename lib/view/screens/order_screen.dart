@@ -107,6 +107,40 @@ class _OrderScreenState extends State<OrderScreen> {
                                   '${addon.name} (\$${addon.price.toStringAsFixed(2)})'),
                             );
                           }).toList(),
+                          SizedBox(height: 8,),
+                          IconButton(
+                              icon: Icon(Icons.delete, color: Colors.red),
+                              onPressed: () async {
+                                // Confirm deletion
+                                final shouldDelete = await showDialog<bool>(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('Delete Order'),
+                                      content: Text(
+                                          'Are you sure you want to delete this order?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, false),
+                                          child: Text('Cancel'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, true),
+                                          child: Text('Delete'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+
+                                if (shouldDelete ?? false) {
+                                  await orderProvider.deleteOrder(orderId);
+                                  setState(() {}); // Refresh UI
+                                }
+                              },
+                            ),
                         ]
                       ],
                     ),

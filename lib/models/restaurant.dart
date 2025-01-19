@@ -286,16 +286,43 @@ class Restaurant extends ChangeNotifier {
     }
   }
 
-  Future<void> deleteOrder(int orderId) async {
+  // Future<void> deleteOrder(int orderId) async {
+  //   final response = await http.post(
+  //     Uri.parse("$baseUrl/deleteOrder.php"),
+  //     body: {'order_id': orderId.toString()},
+  //   );
+
+  //   if (response.statusCode != 200) {
+  //     throw Exception('Failed to delete order');
+  //   }
+  // }
+Future<void> deleteOrder(int orderId) async {
+  try {
     final response = await http.post(
       Uri.parse("$baseUrl/deleteOrder.php"),
-      body: {'order_id': orderId.toString()},
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'order_id': orderId}),
     );
 
-    if (response.statusCode != 200) {
-      throw Exception('Failed to delete order');
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+
+      if (responseData != null && responseData['status'] == 'success') {
+        // Remove the deleted order from the local list
+        _orders.removeWhere((order) => order.id == orderId);
+
+        notifyListeners(); // Notify listeners to refresh the UI
+      } else {
+        throw Exception(responseData['message'] ?? 'Failed to delete order');
+      }
+    } else {
+      throw Exception('Failed to delete order with status code: ${response.statusCode}');
     }
+  } catch (error) {
+    print('Error deleting order: $error');
+    throw Exception('Failed to delete order: $error');
   }
+}
 
   // Change order status
   Future<void> changeOrderStatus(int orderId, String status) async {
