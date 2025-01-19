@@ -68,6 +68,10 @@ class _OrderScreenState extends State<OrderScreen> {
                         SizedBox(height: 8),
                         Text('Status: ${orders.first.status}'),
                         SizedBox(height: 8),
+                        Text('Phone Number: ${orders.first.phoneNumber} '),
+                        SizedBox(height: 8),
+                        Text('Location: ${orders.first.location} '),
+                        SizedBox(height: 8),
                         Text(
                           'Total Price: \$${orders.first.totalPrice.toStringAsFixed(2)}',
                           style: TextStyle(

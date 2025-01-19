@@ -9,6 +9,8 @@ class Order {
   final int id;
   final String status;
   final String userName;
+  final String location;
+  final String phoneNumber;
   final Food items; // Add this field
   final double totalPrice;
 
@@ -18,6 +20,8 @@ class Order {
     required this.userName,
     required this.items, // Include this parameter in the constructor
     required this.totalPrice,
+    required this.location,
+    required this.phoneNumber
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -25,6 +29,8 @@ class Order {
       id: json['order_id'] ?? 0,
       status: json['status'] ?? 'Unknown',
       userName: json['user_name'] ?? 'Guest',
+      location: json['location'] ?? 'Unknown',
+      phoneNumber: json['phoneNumber'] ?? 'phoneNumber',
       items: Food(
         id: json['items']['food_id']?.toString() ?? '',
         name: json['items']['food_details']['name'] ?? 'Unknown',
@@ -201,7 +207,8 @@ class Restaurant extends ChangeNotifier {
 
   List<Order> _orders = [];
 
-  Future<void> addOrder(List<CartItem> cartItems, int userId) async {
+  Future<void> addOrder(List<CartItem> cartItems, int userId, String location,
+      String phoneNumber) async {
     try {
       // Create a list of order items with the specified format
       List<Map<String, dynamic>> orderItems = cartItems.map((item) {
@@ -214,6 +221,8 @@ class Restaurant extends ChangeNotifier {
               ? item.selectedAddons[0].id
               : null, // Assuming only one addon for simplicity
           'quantity': item.quantity,
+          'location': location,
+          'phoneNumber': phoneNumber
         };
       }).toList();
 
@@ -222,6 +231,8 @@ class Restaurant extends ChangeNotifier {
         'user_id': userId,
         'items': orderItems,
         'total_price': getTotalPrice(),
+        'location': location,
+        'phoneNumber': phoneNumber
       };
       print(json.encode(requestData));
       // POST request to the backend

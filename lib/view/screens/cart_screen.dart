@@ -18,8 +18,8 @@ class CartScreen extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     return Consumer<Restaurant>(
       builder: (context, restaurant, child) {
-        final userCart = restaurant.cart;
-        final totalPrice = restaurant.getTotalPrice();
+          final userCart = restaurant.cart;
+          final totalPrice = restaurant.getTotalPrice();
         return Scaffold(
           appBar: AppBar(
             title: const Text("Cart"),
@@ -102,7 +102,7 @@ class CartScreen extends StatelessWidget {
                         color: Colors.orange,
                         text: "Checkout",
                         onTap: () {
-                          restaurant.addOrder( userCart,shared.getInt('id')!);
+                          
                           // Navigator.of(context).push(
                           //   MaterialPageRoute(
                           //     builder: (context) => const PaymentScreen(),
