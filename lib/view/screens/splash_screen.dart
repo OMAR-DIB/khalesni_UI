@@ -24,8 +24,11 @@ class _SplashScreenState extends State<SplashScreen> {
     return const Scaffold(
       backgroundColor: Colors.white, // Set background color
       body: Center(
-        child: Icon(Icons.ac_unit_rounded,size: 200,)
-      ),
+          child: Icon(
+        Icons.delivery_dining_sharp,
+        color: Colors.orange,
+        size: 255,
+      )),
     );
   }
 }

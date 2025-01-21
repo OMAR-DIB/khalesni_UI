@@ -59,6 +59,7 @@ class PaymentScreen extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
             ),
             SizedBox(
